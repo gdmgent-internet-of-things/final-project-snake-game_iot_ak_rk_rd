@@ -60,7 +60,7 @@ class SNAKE:
         elif tail_relation == Vector2(0,1): self.head = self.tail_up
         elif tail_relation == Vector2(0,-1): self.head = self.tail_down
             
-      
+      #error with snake tail 
 
       
     
