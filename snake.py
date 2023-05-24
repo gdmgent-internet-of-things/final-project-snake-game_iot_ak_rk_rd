@@ -30,7 +30,7 @@ class SNAKE:
 
     def draw_snake(self):
         self.update_head_graphics()
-        self.update.tail.graphics()
+        self.update_tail_graphics()
 
         for index,block in enumerate(self.body):
              # 1. A rect for the poistioning
@@ -44,7 +44,30 @@ class SNAKE:
              elif index == len(self.body) - 1:
                   screen.blit(self.tail,block_rect)
              else: 
-                pygame.draw.rect(screen,(150,100,100),block_rect)
+                 previous_block = self.body[index + 1] - block
+                 next_block = self.body[index - 1] - block
+                 if previous_block.x == next_block.x:
+                    screen.blit(self.body_vertical,block_rect)
+                 elif previous_block.y == next_block.y:
+                    screen.blit(self.body_horizontal,block_rect)
+                 else:
+                    if previous_block.x == -1 and next_block.y == -1 or previous_block.y == -1 and next_block.x == -1:
+                     screen.blit(self.body_tl,block_rect)
+                    elif previous_block.x == -1 and next_block.y == 1 or previous_block.y == 1 and next_block.x == -1:
+                     screen.blit(self.body_bl,block_rect)
+                    elif previous_block.x == 1 and next_block.y == -1 or previous_block.y == -1 and next_block.x == 1:
+                     screen.blit(self.body_tr,block_rect)
+                    elif previous_block.x == 1 and next_block.y == 1 or previous_block.y == 1 and next_block.x == 1:
+                     screen.blit(self.body_br,block_rect)
+                     
+                   
+                     
+                 
+            
+            
+                 
+                 
+            
         
     def update_head_graphics(self):
         head_relation = self.body[1] - self.body[0]
@@ -55,10 +78,10 @@ class SNAKE:
 
     def update_tail_graphics(self):
         tail_relation = self.body[-2] - self.body[-1]
-        if tail_relation == Vector2(1,0): self.head = self.tail_left
-        elif tail_relation == Vector2(-1,0): self.head = self.tail_right
-        elif tail_relation == Vector2(0,1): self.head = self.tail_up
-        elif tail_relation == Vector2(0,-1): self.head = self.tail_down
+        if tail_relation == Vector2(1,0): self.tail = self.tail_left
+        elif tail_relation == Vector2(-1,0): self.tail = self.tail_right
+        elif tail_relation == Vector2(0,1): self.tail = self.tail_up
+        elif tail_relation == Vector2(0,-1): self.tail = self.tail_down
             
       #error with snake tail 
 
