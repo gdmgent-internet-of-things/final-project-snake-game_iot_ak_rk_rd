@@ -34,14 +34,18 @@ class DOT:
       self.randomize()
 
     def draw_dot(self):
-      dot_circle = pygame.Rect(int(self.pos.x * cell_size),int(self.pos.y * cell_size),cell_size,cell_size)
-      pygame.draw.rect(screen,(241,102,14), dot_circle)  
+       dot_center = (int(self.pos.x * cell_size + cell_size // 2), int(self.pos.y * cell_size + cell_size // 2))
+       dot_radius = cell_size // 2
+       pygame.draw.circle(screen, self.color, dot_center, dot_radius)  
 
     def randomize(self):
         #random plaats dot
         self.x = random.randint(0, cell_number - 1)
         self.y = random.randint(0, cell_number - 1)
-        self.pos = pygame.math.Vector2(self.x, self.y)    
+        self.pos = pygame.math.Vector2(self.x, self.y)
+
+        # Randomize dot color
+        self.color = (random.randint(0, 255), random.randint(150, 255), random.randint(0, 255))    
 
 class MAIN:
     def __init__(self):
@@ -105,13 +109,17 @@ while True:
            main.update()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
-              main.snake.direction = Vector2(0,-1)
+                if main.snake.direction.y != 1: 
+                   main.snake.direction = Vector2(0,-1)
             if event.key == pygame.K_DOWN:
-              main.snake.direction = Vector2(0,1)
+                if main.snake.direction.y != -1: 
+                   main.snake.direction = Vector2(0,1)
             if event.key == pygame.K_RIGHT:
-              main.snake.direction = Vector2(1,0)
+                if main.snake.direction.x != -1: 
+                   main.snake.direction = Vector2(1,0)
             if event.key == pygame.K_LEFT:
-              main.snake.direction = Vector2(-1,0)
+                if main.snake.direction.x != 1: 
+                   main.snake.direction = Vector2(-1,0)
 
     screen.blit(background, (0,0))
     main.draw_elements()
