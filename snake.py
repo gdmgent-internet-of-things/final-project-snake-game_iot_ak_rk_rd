@@ -125,7 +125,7 @@ class DOT:
         # Randomize dot color
         hue = random.random()  # Random hue value between 0 and 1
         saturation = random.uniform(0.8, 1.0)  # Increased saturation
-        brightness = random.uniform(0.8, 1.0)  # Increased brightness
+        brightness = random.uniform(0.5, 1.0)  # Increased brightness
         rgb_color = colorsys.hsv_to_rgb(hue, saturation, brightness)
         self.color = tuple(int(c * 255) for c in rgb_color)
 
@@ -140,8 +140,11 @@ class MAIN:
        self.check_fail()
     
     def draw_elements(self):
+        self.draw_grass()
         self.dot.draw_dot()
         self.snake.draw_snake()
+        self.draw_score()
+        
 
     def check_collusion(self):
        if self.dot.pos == self.snake.body[0]:
@@ -164,18 +167,53 @@ class MAIN:
     def game_over(self):
         pygame.quit()
         sys.exit()
+        
+        
+    def draw_grass(self):
+        grass_color = (167,209,61)
+        for row in range(cell_number):
+            if row % 2 == 0:
+                for col in range(cell_number):
+                    if col % 2 == 0:
+                        grass_rect = pygame.Rect(col * cell_size, row * cell_size,cell_size,cell_size)
+                        pygame.draw.rect(screen,grass_color,grass_rect)
+            else:
+                for col in range(cell_number):
+                    if col % 2 != 0:
+                       grass_rect = pygame.Rect(col * cell_size, row * cell_size,cell_size,cell_size)
+                       pygame.draw.rect(screen,grass_color,grass_rect)
+                        
+                    	
+        
+        
+    def draw_score(self):
+        score_text = str(len(self.snake.body) - 3)
+        score_surface = game_font.render(score_text,True, (255,0,0))
+       # Added white background box for the score
+        box_width = 80
+        box_height = 40
+        box_x = int(cell_size * cell_number - box_width - 10)
+        box_y = int(cell_size * cell_number - box_height - 10)
+        box_rect = pygame.Rect(box_x, box_y, box_width, box_height)
+        pygame.draw.rect(screen, (255, 255, 255), box_rect)
+        pygame.draw.rect(screen,(255, 255, 255), box_rect, 2)
+       # Position the score text within the box
+        score_rect = score_surface.get_rect(center=(box_x + box_width // 2, box_y + box_height // 2))
+        screen.blit(score_surface,score_rect)
        
 
 pygame.init()
-cell_size = 30
+cell_size = 35
 cell_number= 25
 width = cell_number*cell_size
-heigt = cell_number*cell_size
-screen =  pygame.display.set_mode((width,heigt))
+height = cell_number*cell_size
+screen =  pygame.display.set_mode((width,height))
 clock = pygame.time.Clock()
 test_surface = pygame.Surface((100,200))
-background = pygame.image.load("images/background.jpg")
-background = pygame.transform.scale(background, (width, heigt))
+# Removed background because it is too pixely 
+# background = pygame.image.load("images/background.jpg")
+# background = pygame.transform.scale(background, (width, height))
+game_font = pygame.font.Font(None, 45)
 
 SCREEN_UPDATE = pygame.USEREVENT
 pygame.time.set_timer(SCREEN_UPDATE,150)
@@ -203,7 +241,9 @@ while True:
                 if main.snake.direction.x != 1: 
                    main.snake.direction = Vector2(-1,0)
 
-    screen.blit(background, (0,0))
+    # screen.blit(background, (0,0))
+    # added grass because background is too dark and pixely for score number to show
+    screen.fill((175,215,70))
     main.draw_elements()
     pygame.display.update()
     #hoe snel het spel loopt (framerate)
