@@ -5,8 +5,8 @@ import colorsys
 from pygame.math import Vector2
 
 class SNAKE:
-    def __init__(self):
-        self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)]
+    def __init__(self, start_pos):
+        self.body = [start_pos, Vector2(start_pos.x - 1, start_pos.y), Vector2(start_pos.x - 2, start_pos.y)]
         self.direction = Vector2(1, 0)
         self.new_block = False
 
@@ -60,7 +60,7 @@ class SNAKE:
                     elif previous_block.x == 1 and next_block.y == 1 or previous_block.y == 1 and next_block.x == 1:
                      screen.blit(self.body_br,block_rect)
                      
-  
+                       
         
     def update_head_graphics(self):
         head_relation = self.body[1] - self.body[0]
@@ -78,12 +78,9 @@ class SNAKE:
             
       #error with snake tail 
 
-      #for block in self.body:
-       #  x_position = int(block.x*cell_size)
-        # y_position = int(block.y*cell_size)
-        # block_rect = pygame.Rect(x_position, y_position,cell_size,cell_size)
-        # pygame.draw.rect(screen,(92,128,27),block_rect)
-
+      
+    
+      
     def move_snake(self):
       if self.new_block == True: 
           body_copy = self.body[:]
@@ -122,27 +119,36 @@ class DOT:
 
 class MAIN:
     def __init__(self):
-      self.snake = SNAKE()
+      self.snake = SNAKE(Vector2(5, 10))
+      self.snake2 = SNAKE(Vector2(15, 10))
       self.dot = DOT()
 
     def update(self):
        self.snake.move_snake()
+       self.snake2.move_snake()
        self.check_collusion()
        self.check_fail()
     
     def draw_elements(self):
-        # self.draw_grass()
+        self.draw_grass()
         self.dot.draw_dot()
         self.snake.draw_snake()
+        self.snake2.draw_snake()
         self.draw_score()
         
 
     def check_collusion(self):
-       if self.dot.pos == self.snake.body[0]:
+        if self.dot.pos == self.snake.body[0]:
           # verplaats de bol 
           self.dot.randomize()
           # maak slang langer
           self.snake.add_block()
+    
+    
+        if self.dot.pos == self.snake2.body[0]:
+            self.dot.randomize()
+          # maak slang langer
+            self.snake2.add_block()
     
     def check_fail(self):
       #om te zien of de snake buite et scherm is
@@ -153,11 +159,35 @@ class MAIN:
       for block in self.snake.body[1:]:
          if block == self.snake.body[0]:
             self.game_over()
-
+      
+      if not 0 <= self.snake2.body[0].x < cell_number or not 0 <= self.snake2.body[0].y < cell_number:
+          self.game_over()
+      
+      #als de snake zichzelf aanraakt
+      for block in self.snake2.body[1:]:
+         if block == self.snake2.body[0]:
+            self.game_over()
 
     def game_over(self):
         pygame.quit()
-        sys.exit()    	
+        sys.exit()
+        
+        
+    def draw_grass(self):
+        grass_color = (167,209,61)
+        for row in range(cell_number):
+            if row % 2 == 0:
+                for col in range(cell_number):
+                    if col % 2 == 0:
+                        grass_rect = pygame.Rect(col * cell_size, row * cell_size,cell_size,cell_size)
+                        pygame.draw.rect(screen,grass_color,grass_rect)
+            else:
+                for col in range(cell_number):
+                    if col % 2 != 0:
+                       grass_rect = pygame.Rect(col * cell_size, row * cell_size,cell_size,cell_size)
+                       pygame.draw.rect(screen,grass_color,grass_rect)
+                        
+                    	
         
         
     def draw_score(self):
@@ -177,15 +207,16 @@ class MAIN:
        
 
 pygame.init()
-cell_size = 30
+cell_size = 35
 cell_number= 25
 width = cell_number*cell_size
 height = cell_number*cell_size
 screen =  pygame.display.set_mode((width,height))
 clock = pygame.time.Clock()
 test_surface = pygame.Surface((100,200))
-background = pygame.image.load("images/background.jpg")
-background = pygame.transform.scale(background, (width, height))
+# Removed background because it is too pixely 
+# background = pygame.image.load("images/background.jpg")
+# background = pygame.transform.scale(background, (width, height))
 game_font = pygame.font.Font(None, 45)
 
 SCREEN_UPDATE = pygame.USEREVENT
@@ -213,10 +244,24 @@ while True:
             if event.key == pygame.K_LEFT:
                 if main.snake.direction.x != 1: 
                    main.snake.direction = Vector2(-1,0)
+                   
+            if event.key == pygame.K_z:
+                if main.snake2.direction.y != 1: 
+                   main.snake2.direction = Vector2(0,-1)
+            if event.key == pygame.K_s:
+                if main.snake2.direction.y != -1: 
+                   main.snake2.direction = Vector2(0,1)
+            if event.key == pygame.K_d:
+                if main.snake2.direction.x != -1: 
+                   main.snake2.direction = Vector2(1,0)
+            if event.key == pygame.K_q:
+                if main.snake2.direction.x != 1: 
+                   main.snake2.direction = Vector2(-1,0)
 
-
-    screen.blit(background, (0,0))
+    # screen.blit(background, (0,0))
+    # added grass because background is too dark and pixely for score number to show
+    screen.fill((175,215,70))
     main.draw_elements()
     pygame.display.update()
     #hoe snel het spel loopt (framerate)
-    clock.tick(60)
+    clock.tick(20)
