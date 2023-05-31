@@ -60,14 +60,7 @@ class SNAKE:
                     elif previous_block.x == 1 and next_block.y == 1 or previous_block.y == 1 and next_block.x == 1:
                      screen.blit(self.body_br,block_rect)
                      
-                   
-                     
-                 
-            
-            
-                 
-                 
-            
+  
         
     def update_head_graphics(self):
         head_relation = self.body[1] - self.body[0]
@@ -85,8 +78,6 @@ class SNAKE:
             
       #error with snake tail 
 
-      
-    
       #for block in self.body:
        #  x_position = int(block.x*cell_size)
         # y_position = int(block.y*cell_size)
@@ -140,7 +131,7 @@ class MAIN:
        self.check_fail()
     
     def draw_elements(self):
-        self.draw_grass()
+        # self.draw_grass()
         self.dot.draw_dot()
         self.snake.draw_snake()
         self.draw_score()
@@ -162,28 +153,11 @@ class MAIN:
       for block in self.snake.body[1:]:
          if block == self.snake.body[0]:
             self.game_over()
-      
+
 
     def game_over(self):
         pygame.quit()
-        sys.exit()
-        
-        
-    def draw_grass(self):
-        grass_color = (167,209,61)
-        for row in range(cell_number):
-            if row % 2 == 0:
-                for col in range(cell_number):
-                    if col % 2 == 0:
-                        grass_rect = pygame.Rect(col * cell_size, row * cell_size,cell_size,cell_size)
-                        pygame.draw.rect(screen,grass_color,grass_rect)
-            else:
-                for col in range(cell_number):
-                    if col % 2 != 0:
-                       grass_rect = pygame.Rect(col * cell_size, row * cell_size,cell_size,cell_size)
-                       pygame.draw.rect(screen,grass_color,grass_rect)
-                        
-                    	
+        sys.exit()    	
         
         
     def draw_score(self):
@@ -203,16 +177,15 @@ class MAIN:
        
 
 pygame.init()
-cell_size = 35
+cell_size = 30
 cell_number= 25
 width = cell_number*cell_size
 height = cell_number*cell_size
 screen =  pygame.display.set_mode((width,height))
 clock = pygame.time.Clock()
 test_surface = pygame.Surface((100,200))
-# Removed background because it is too pixely 
-# background = pygame.image.load("images/background.jpg")
-# background = pygame.transform.scale(background, (width, height))
+background = pygame.image.load("images/background.jpg")
+background = pygame.transform.scale(background, (width, height))
 game_font = pygame.font.Font(None, 45)
 
 SCREEN_UPDATE = pygame.USEREVENT
@@ -241,9 +214,8 @@ while True:
                 if main.snake.direction.x != 1: 
                    main.snake.direction = Vector2(-1,0)
 
-    # screen.blit(background, (0,0))
-    # added grass because background is too dark and pixely for score number to show
-    screen.fill((175,215,70))
+
+    screen.blit(background, (0,0))
     main.draw_elements()
     pygame.display.update()
     #hoe snel het spel loopt (framerate)
