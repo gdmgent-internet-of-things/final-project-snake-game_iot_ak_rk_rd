@@ -78,9 +78,6 @@ class SNAKE:
             
       #error with snake tail 
 
-      
-    
-      
     def move_snake(self):
       if self.new_block == True: 
           body_copy = self.body[:]
@@ -130,7 +127,6 @@ class MAIN:
        self.check_fail()
     
     def draw_elements(self):
-        self.draw_grass()
         self.dot.draw_dot()
         self.snake.draw_snake()
         self.snake2.draw_snake()
@@ -173,23 +169,6 @@ class MAIN:
         sys.exit()
         
         
-    def draw_grass(self):
-        grass_color = (167,209,61)
-        for row in range(cell_number):
-            if row % 2 == 0:
-                for col in range(cell_number):
-                    if col % 2 == 0:
-                        grass_rect = pygame.Rect(col * cell_size, row * cell_size,cell_size,cell_size)
-                        pygame.draw.rect(screen,grass_color,grass_rect)
-            else:
-                for col in range(cell_number):
-                    if col % 2 != 0:
-                       grass_rect = pygame.Rect(col * cell_size, row * cell_size,cell_size,cell_size)
-                       pygame.draw.rect(screen,grass_color,grass_rect)
-                        
-                    	
-        
-        
     def draw_score(self):
         score_text = str(len(self.snake.body) - 3)
         score_surface = game_font.render(score_text,True, (255,0,0))
@@ -207,7 +186,7 @@ class MAIN:
        
 
 pygame.init()
-cell_size = 35
+cell_size = 30
 cell_number= 25
 width = cell_number*cell_size
 height = cell_number*cell_size
@@ -215,8 +194,8 @@ screen =  pygame.display.set_mode((width,height))
 clock = pygame.time.Clock()
 test_surface = pygame.Surface((100,200))
 # Removed background because it is too pixely 
-# background = pygame.image.load("images/background.jpg")
-# background = pygame.transform.scale(background, (width, height))
+background = pygame.image.load("images/background.jpg")
+background = pygame.transform.scale(background, (width, height))
 game_font = pygame.font.Font(None, 45)
 
 SCREEN_UPDATE = pygame.USEREVENT
@@ -258,9 +237,9 @@ while True:
                 if main.snake2.direction.x != 1: 
                    main.snake2.direction = Vector2(-1,0)
 
-    # screen.blit(background, (0,0))
+    screen.blit(background, (0,0))
     # added grass because background is too dark and pixely for score number to show
-    screen.fill((175,215,70))
+    # screen.fill((175,215,70))
     main.draw_elements()
     pygame.display.update()
     #hoe snel het spel loopt (framerate)
