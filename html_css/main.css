@@ -61,6 +61,54 @@ button:active {
   background-color: #FF6300;
 }
 
+
+.input-snakes {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+input {
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+}
+
+label {
+  font-size: 1.2rem;
+}
+
+.label-blue {
+  color: #13C2C2;
+}
+
+.input-blue {
+  background-color: #B8E7E7;
+}
+
+.label-green {
+  color: #81B227;
+}
+
+.input-green {
+  background-color: #E2F2C4;
+}
+
+
+.label-orange {
+  color: #FF6300;
+
+}
+
+.input-orange {
+  background-color: #F5D3BE;
+}
+
+.button-start {
+  background-color: transparent;
+  border: 1px solid #fff;
+}
+
 /* colors */
 /* snake 1: #13C2C2 */
 /* snake 2: #81B227 */
