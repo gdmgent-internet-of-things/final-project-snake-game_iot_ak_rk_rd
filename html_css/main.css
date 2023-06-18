@@ -1,4 +1,5 @@
 html {
+  font-family: 'Bubblegum Sans', cursive;
   background-image: url("../images/background.jpg");
   margin: 0;
   padding: 0;
@@ -42,6 +43,7 @@ button {
   color: #fff;
   font-size: 1.2rem;
   transition: 0.3s;
+  font-family: 'Bubblegum Sans', cursive;
 }
 
 button:active {
@@ -107,6 +109,7 @@ label {
 .button-start {
   background-color: transparent;
   border: 1px solid #fff;
+  font-size: 1.8rem;
 }
 
 p {
