@@ -109,6 +109,11 @@ label {
   border: 1px solid #fff;
 }
 
+p {
+ font-size: 1.4rem;
+ margin: 0 0 1rem;
+}
+
 /* colors */
 /* snake 1: #13C2C2 */
 /* snake 2: #81B227 */
