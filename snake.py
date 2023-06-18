@@ -2,7 +2,32 @@ import pygame
 import sys
 import random
 import colorsys
+import json, os
 from pygame.math import Vector2
+import pygame.joystick
+
+
+pygame.init()
+pygame.joystick.init()
+
+joysticks = []
+for i in range(pygame.joystick.get_count()):
+    joysticks.append(pygame.joystick.Joystick(i))
+for joystick in joysticks:
+    joystick.init()
+
+with open(os.path.join("ps4_keys.json"), 'r+') as file:
+    button_keys = json.load(file)
+# 0: Left analog horizonal, 1: Left Analog Vertical, 2: Right Analog Horizontal
+# 3: Right Analog Vertical 4: Left Trigger, 5: Right Trigger
+analog_keys = {0:0, 1:0, 2:0, 3:0, 4:-1, 5: -1 }
+joystick_state = {0: 0, 1: 0, 2: 0, 3: 0}
+
+
+
+
+
+
 
 class SNAKE:
     def __init__(self, start_pos):
@@ -208,6 +233,7 @@ width = cell_number*cell_size
 height = cell_number*cell_size
 screen =  pygame.display.set_mode((width,height))
 clock = pygame.time.Clock()
+
 test_surface = pygame.Surface((100,200))
 # Removed background because it is too pixely 
 background = pygame.image.load("images/background.jpg")
@@ -215,48 +241,95 @@ background = pygame.transform.scale(background, (width, height))
 game_font = pygame.font.Font(None, 45)
 
 SCREEN_UPDATE = pygame.USEREVENT
-pygame.time.set_timer(SCREEN_UPDATE,150)
+pygame.time.set_timer(SCREEN_UPDATE,150) 
+
 
 main = MAIN()
-
+# controller = MyController(interface="/dev/input/js0", connecting_using_ds4drv=False, event_definition=MyEventDefinition)
+# controller.listen()
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
         if event.type == SCREEN_UPDATE:
-           main.update()
+            main.update()
+
+        # Keyboard events
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
-                if main.snake.direction.y != 1: 
-                   main.snake.direction = Vector2(0,-1)
+                if main.snake.direction.y != 1:
+                    main.snake.direction = Vector2(0, -1)
             if event.key == pygame.K_DOWN:
-                if main.snake.direction.y != -1: 
-                   main.snake.direction = Vector2(0,1)
+                if main.snake.direction.y != -1:
+                    main.snake.direction = Vector2(0, 1)
             if event.key == pygame.K_RIGHT:
-                if main.snake.direction.x != -1: 
-                   main.snake.direction = Vector2(1,0)
+                if main.snake.direction.x != -1:
+                    main.snake.direction = Vector2(1, 0)
             if event.key == pygame.K_LEFT:
-                if main.snake.direction.x != 1: 
-                   main.snake.direction = Vector2(-1,0)
-                   
-            if event.key == pygame.K_z:
-                if main.snake2.direction.y != 1: 
-                   main.snake2.direction = Vector2(0,-1)
-            if event.key == pygame.K_s:
-                if main.snake2.direction.y != -1: 
-                   main.snake2.direction = Vector2(0,1)
-            if event.key == pygame.K_d:
-                if main.snake2.direction.x != -1: 
-                   main.snake2.direction = Vector2(1,0)
-            if event.key == pygame.K_q:
-                if main.snake2.direction.x != 1: 
-                   main.snake2.direction = Vector2(-1,0)
+                if main.snake.direction.x != 1:
+                    main.snake.direction = Vector2(-1, 0)
 
-    screen.blit(background, (0,0))
-    # added grass because background is too dark and pixely for score number to show
-    # screen.fill((175,215,70))
+     # Joystick button events
+
+     #currently facing a problem moving snake with d-pad or arrows---------
+#         if event.type == pygame.JOYBUTTONDOWN:
+#     # Handle button presses
+#             if 'circle' in button_keys and hasattr(event, 'button') and event.button == button_keys['circle']:
+#               joystick_state[0] = 1  # Right analog horizontal
+#         elif 'square' in button_keys and hasattr(event, 'button') and event.button == button_keys['square']:
+#               joystick_state[0] = -1  # Left analog horizontal
+#         elif 'x' in button_keys and hasattr(event, 'button') and event.button == button_keys['x']:
+#               joystick_state[1] = -1  # Right analog vertical
+#         elif 'triangle' in button_keys and hasattr(event, 'button') and event.button == button_keys['triangle']:
+#               joystick_state[1] = 1  # Left analog vertical
+
+# # Update the direction of snake2 based on the joystick state
+#         if joystick_state[0] < -0.5:
+#             main.snake2.direction = Vector2(-1, 0)  # Left
+#         elif joystick_state[0] > 0.5:
+#             main.snake2.direction = Vector2(1, 0)  # Right
+#         elif joystick_state[1] < -0.5:
+#             main.snake2.direction = Vector2(0, 1)  # Down
+#         elif joystick_state[1] > 0.5:
+#             main.snake2.direction = Vector2(0, -1)  # Up
+
+
+
+        if event.type == pygame.JOYAXISMOTION:
+            # Update the joystick state when axes are moved
+            if event.axis == 0:
+                joystick_state[0] = event.value
+            if event.axis == 1:
+                joystick_state[1] = event.value
+
+    # Update the direction of snake2 based on the joystick state
+            if joystick_state[0] < -0.5 and abs(joystick_state[1]) < 0.5:
+                main.snake2.direction = Vector2(-1, 0)  # Left
+            elif joystick_state[0] > 0.5 and abs(joystick_state[1]) < 0.5:
+                main.snake2.direction = Vector2(1, 0)  # Right
+            elif abs(joystick_state[0]) < 0.5 and joystick_state[1] < -0.5:
+                main.snake2.direction = Vector2(0, -1)  # Up
+            elif abs(joystick_state[0]) < 0.5 and joystick_state[1] > 0.5:
+                main.snake2.direction = Vector2(0, 1)  # Down
+
+
+    screen.blit(background, (0, 0))
     main.draw_elements()
     pygame.display.update()
-    #hoe snel het spel loopt (framerate)
     clock.tick(20)
+
+
+# using keyboard
+            # if event.key == pygame.K_z:
+            #     if main.snake2.direction.y != 1: 
+            #        main.snake2.direction = Vector2(0,-1)
+            # if event.key == pygame.K_s:
+            #     if main.snake2.direction.y != -1: 
+            #        main.snake2.direction = Vector2(0,1)
+            # if event.key == pygame.K_d:
+            #     if main.snake2.direction.x != -1: 
+            #        main.snake2.direction = Vector2(1,0)
+            # if event.key == pygame.K_q:
+            #     if main.snake2.direction.x != 1: 
+            #        main.snake2.direction = Vector2(-1,0)
