@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,22 +9,11 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
   <title>Snake Game</title>
 </head>
-
 <body>
-  <form action="/getscore2" method="POST">
-    <h1>Name The Snakes</h1>
-    <div class="input-snakes">
-      <label class="label-blue" for="input">Snake 1</label>
-      <input class="input-blue" type="text">
-    </div>
-
-    <div class="input-snakes">
-      <label class="label-green" for="input">Snake 2</label>
-      <input class="input-green" type="text">
-    </div>
-
-    <button class="button-start" type="submit">Start Game</button>
-  </form>
+  <section>
+    <a href="/gameover">
+      <button class="button-start">Get your score here!</button>
+    </a>
+  </section>
 </body>
-
 </html>
