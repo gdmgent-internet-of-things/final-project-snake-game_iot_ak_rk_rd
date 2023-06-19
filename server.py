@@ -1,21 +1,34 @@
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from flask import Flask, render_template
+import subprocess
 
+app = Flask(__name__)
 
-HOST = "192.168.50.195"
-PORT = 9999
+@app.route("/")
+def start_scherm():
+    return render_template('start_scherm.html')
 
-class NeuralHTTP(BaseHTTPRequestHandler):
-  def do_GET(self):
-    self.send_response(200)
-    self.send_header("Content-type", "text/html")
-    self.end_headers()
+@app.route("/1player")
+def name_1player():
+    return render_template('name_1player.html')
 
-    self.wfile.write(bytes("<html><body><h1>hello</h1></body></html>", "utf-8"))
+@app.route("/2players")
+def name_2players():
+    return render_template('name_2players.html')
 
+@app.route("/3players")
+def name_3players():
+    return render_template('name_3players.html')
 
-server = HTTPServer((HOST, PORT), NeuralHTTP)
-print("Server now running...")
+@app.route("/start_game", methods=["POST"])
+def start_game():
+    # Run the snake.py file as a separate process
+    subprocess.Popen(["python", "snake.py"])
+    return render_template('game_started.html')
 
-server.serve_forever()
-server.server_close()
-print("Server stopped")
+@app.route("/gameover")
+def game_over():
+    return render_template('game_over.html')
+
+if __name__ == '__main__':
+    app.run()
+

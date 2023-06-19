@@ -13,7 +13,7 @@ body {
   justify-content: center;
 }
 
-section {
+section, form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -115,6 +115,10 @@ label {
 p {
  font-size: 1.4rem;
  margin: 0 0 1rem;
+}
+
+.hidden {
+  display: none;
 }
 
 /* colors */

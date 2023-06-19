@@ -8,22 +8,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./main.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
   <title>Snake Game</title>
 </head>
 
 <body>
-
   <section>
-    <h1>Choose The Players</h1>
-    <div class="buttons">
-      <button class="button-1">1 Player</button>
-      <button class="button-2">2 Players</button>
-      <button class="button-3">3 Players</button>
-    </div>
+    <h1>Game Over</h1>
 
+    <p class="label-blue">Snake 1: 10</p>
+    <p class="label-green">Snake 2 : 8</p>
+    <p class="label-orange">Snake 3: 12</p>
+
+    <button class="button-start">Start New Game</button>
   </section>
-
 </body>
 
 </html>
