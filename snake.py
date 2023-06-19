@@ -5,6 +5,8 @@ import colorsys
 import json, os
 from pygame.math import Vector2
 import pygame.joystick
+import time 
+import RPi.GPIO as GPIO
 
 
 pygame.init()
@@ -247,6 +249,7 @@ pygame.time.set_timer(SCREEN_UPDATE,150)
 main = MAIN()
 # controller = MyController(interface="/dev/input/js0", connecting_using_ds4drv=False, event_definition=MyEventDefinition)
 # controller.listen()
+#keyboard arrow keys
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -271,7 +274,6 @@ while True:
                     main.snake.direction = Vector2(-1, 0)
 
      # Joystick button events
-
      #currently facing a problem moving snake with d-pad or arrows---------
 #         if event.type == pygame.JOYBUTTONDOWN:
 #     # Handle button presses
@@ -294,7 +296,7 @@ while True:
 #         elif joystick_state[1] > 0.5:
 #             main.snake2.direction = Vector2(0, -1)  # Up
 
-
+   #Joystick analog movement
 
         if event.type == pygame.JOYAXISMOTION:
             # Update the joystick state when axes are moved
