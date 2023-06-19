@@ -173,19 +173,19 @@ class MAIN:
         sys.exit()
         
         
-    # def draw_grass(self):
-    #     grass_color = (167,209,61)
-    #     for row in range(cell_number):
-    #         if row % 2 == 0:
-    #             for col in range(cell_number):
-    #                 if col % 2 == 0:
-    #                     grass_rect = pygame.Rect(col * cell_size, row * cell_size,cell_size,cell_size)
-    #                     pygame.draw.rect(screen,grass_color,grass_rect)
-    #         else:
-    #             for col in range(cell_number):
-    #                 if col % 2 != 0:
-    #                    grass_rect = pygame.Rect(col * cell_size, row * cell_size,cell_size,cell_size)
-    #                    pygame.draw.rect(screen,grass_color,grass_rect)
+    def draw_grass(self):
+        grass_color = (43,43,48)
+        for row in range(cell_number):
+            if row % 2 == 0:
+                for col in range(cell_number):
+                    if col % 2 == 0:
+                        grass_rect = pygame.Rect(col * cell_size, row * cell_size,cell_size,cell_size)
+                        pygame.draw.rect(screen,grass_color,grass_rect)
+            else:
+                for col in range(cell_number):
+                    if col % 2 != 0:
+                       grass_rect = pygame.Rect(col * cell_size, row * cell_size,cell_size,cell_size)
+                       pygame.draw.rect(screen,grass_color,grass_rect)
         
         
         
@@ -215,8 +215,9 @@ clock = pygame.time.Clock()
 
 test_surface = pygame.Surface((100,200))
 # Removed background because it is too pixely 
-background = pygame.image.load("images/background.png")
-background = pygame.transform.scale(background, (width, height))
+# background = pygame.image.load("./static/images/bg.png")
+# background = pygame.transform.scale(background, (width, height)
+background_color = (139, 139, 151)
 game_font = pygame.font.Font(None, 45)
 
 SCREEN_UPDATE = pygame.USEREVENT
@@ -293,22 +294,9 @@ while True:
                 main.snake2.direction = Vector2(0, 1)  # Down
 
 
-    screen.blit(background, (0, 0))
+    # screen.blit(background, (0, 0))
+    screen.fill(background_color)
+    main.draw_grass()
     main.draw_elements()
     pygame.display.update()
     clock.tick(20)
-
-
-# using keyboard
-            # if event.key == pygame.K_z:
-            #     if main.snake2.direction.y != 1: 
-            #        main.snake2.direction = Vector2(0,-1)
-            # if event.key == pygame.K_s:
-            #     if main.snake2.direction.y != -1: 
-            #        main.snake2.direction = Vector2(0,1)
-            # if event.key == pygame.K_d:
-            #     if main.snake2.direction.x != -1: 
-            #        main.snake2.direction = Vector2(1,0)
-            # if event.key == pygame.K_q:
-            #     if main.snake2.direction.x != 1: 
-            #        main.snake2.direction = Vector2(-1,0)
