@@ -1,5 +1,7 @@
 from flask import Flask, render_template
 import subprocess
+from firebase import db
+
 
 app = Flask(__name__)
 

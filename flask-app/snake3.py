@@ -226,18 +226,29 @@ class MAIN:
         
     def draw_score(self):
         score_text = str(len(self.snake.body) - 3)
+        score_text2 = str(len(self.snake2.body) - 3)
+        score_text3 = str(len(self.snake3.body) - 3)
         score_surface = game_font.render(score_text,True, (255,0,0))
+        score_surface2 = game_font.render(score_text2,True, (255,0,0))
+        score_surface3 = game_font.render(score_text3,True, (255,0,0))
        # Added white background box for the score
         box_width = 80
         box_height = 40
         box_x = int(cell_size * cell_number - box_width - 10)
-        box_y = int(cell_size * cell_number - box_height - 10)
+        box_y = 10
+        # box_y = int(cell_size * cell_number - box_height - 10)
+        box_x2 = 10
+        box_x3 = 400
         box_rect = pygame.Rect(box_x, box_y, box_width, box_height)
         pygame.draw.rect(screen, (255, 255, 255), box_rect)
         pygame.draw.rect(screen,(255, 255, 255), box_rect, 2)
        # Position the score text within the box
         score_rect = score_surface.get_rect(center=(box_x + box_width // 2, box_y + box_height // 2))
-        screen.blit(score_surface,score_rect)
+        score_rect2 = score_surface2.get_rect(center=(box_x2 + box_width // 2, box_y + box_height // 2))
+        score_rect3 = score_surface3.get_rect(center=(box_x3 + box_width // 2, box_y + box_height // 2))
+        screen.blit(score_surface, score_rect)
+        screen.blit(score_surface2, score_rect2)
+        screen.blit(score_surface3, score_rect3)
        
 
 pygame.init()
