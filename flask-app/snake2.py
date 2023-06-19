@@ -231,7 +231,7 @@ clock = pygame.time.Clock()
 
 test_surface = pygame.Surface((100,200))
 # Removed background because it is too pixely 
-background = pygame.image.load("images/background.jpg")
+background = pygame.image.load("images/background.png")
 background = pygame.transform.scale(background, (width, height))
 game_font = pygame.font.Font(None, 45)
 
