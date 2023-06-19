@@ -22,7 +22,19 @@ def name_3players():
 @app.route("/start_game", methods=["POST"])
 def start_game():
     # Run the snake.py file as a separate process
-    subprocess.Popen(["python", "snake.py"])
+    subprocess.Popen(["python", "snake1.py"])
+    return render_template('game_started.html')
+
+@app.route("/start_game2", methods=["POST"])
+def start_game2():
+    # Run the snake.py file as a separate process
+    subprocess.Popen(["python", "snake2.py"])
+    return render_template('game_started.html')
+
+@app.route("/start_game3", methods=["POST"])
+def start_game3():
+    # Run the snake.py file as a separate process
+    subprocess.Popen(["python", "snake3.py"])
     return render_template('game_started.html')
 
 @app.route("/gameover")
