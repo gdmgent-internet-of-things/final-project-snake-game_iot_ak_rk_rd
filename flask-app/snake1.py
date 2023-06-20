@@ -236,8 +236,8 @@ screen =  pygame.display.set_mode((width,height))
 clock = pygame.time.Clock()
 
 test_surface = pygame.Surface((100,200))
-# Removed background because it is too pixely 
-background_color = (139, 139, 151)
+background = pygame.image.load("images/background.png")
+background = pygame.transform.scale(background, (width, height))
 game_font = pygame.font.Font(None, 45)
 
 SCREEN_UPDATE = pygame.USEREVENT
@@ -280,17 +280,15 @@ while True:
 
     # Update the direction of snake2 based on the joystick state
             if joystick_state[0] < -0.5 and abs(joystick_state[1]) < 0.5:
-                main.snake2.direction = Vector2(-1, 0)  # Left
+                main.snake2.direction = Vector2(-1, 0)
             elif joystick_state[0] > 0.5 and abs(joystick_state[1]) < 0.5:
-                main.snake2.direction = Vector2(1, 0)  # Right
+                main.snake2.direction = Vector2(1, 0)
             elif abs(joystick_state[0]) < 0.5 and joystick_state[1] < -0.5:
-                main.snake2.direction = Vector2(0, -1)  # Up
+                main.snake2.direction = Vector2(0, -1)
             elif abs(joystick_state[0]) < 0.5 and joystick_state[1] > 0.5:
-                main.snake2.direction = Vector2(0, 1)  # Down
+                main.snake2.direction = Vector2(0, 1)
 
-    # screen.blit(background, (0, 0))
-    screen.fill(background_color)
-    main.draw_grass()
+    screen.blit(background, (0, 0))
     main.draw_elements()
     pygame.display.update()
     clock.tick(10)

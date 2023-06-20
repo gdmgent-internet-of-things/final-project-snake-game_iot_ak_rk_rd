@@ -445,8 +445,8 @@ screen =  pygame.display.set_mode((width,height))
 clock = pygame.time.Clock()
 
 test_surface = pygame.Surface((100,200))
-# Removed background because it is too pixely 
-background_color = (139, 139, 151)
+background = pygame.image.load("images/background.png")
+background = pygame.transform.scale(background, (width, height))
 game_font = pygame.font.Font(None, 45)
 
 SCREEN_UPDATE = pygame.USEREVENT
@@ -454,8 +454,7 @@ pygame.time.set_timer(SCREEN_UPDATE,150)
 
 
 main = MAIN()
-# controller = MyController(interface="/dev/input/js0", connecting_using_ds4drv=False, event_definition=MyEventDefinition)
-# controller.listen()
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -498,8 +497,7 @@ while True:
                 main.snake2.direction = Vector2(0, 1)  # Down
 
 
-    screen.fill(background_color)
-    main.draw_grass()
+    screen.blit(background, (0, 0))
     main.draw_elements()
     pygame.display.update()
     clock.tick(10)
