@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,34 +9,20 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
   <title>Snake Game</title>
 </head>
-
 <body>
-
   <section>
     <div class="row">
-      <a href="/besturing">
+      <a href="/start">
         <img src="../static/images/round_arrow.png" alt="arrow">
       </a>
-      <h1>Kies het aantal spelers</h1>
-    </div>
-    <div class="buttons">
-      <a href="/1player">
-        <button class="button-1">1 Player</button>
-      </a>
-      <a href="/2players">
-        <button class="button-2">2 Players</button>
-      </a>
-      <a href="/3players">
-      <button class="button-3">3 Players</button>
-    </a>
+      <h1>Game Over</h1>
     </div>
 
-    <a href="/highscores">
-      <button class="button-start">High Scores</button>
-    </a>
+
+    <p class="label-blue">Snake 1: 10</p>
+    <p class="label-green">Snake 2 : 8</p>
+    <p class="label-orange">Snake 3: 12</p>
 
   </section>
-
 </body>
-
 </html>

@@ -6,6 +6,14 @@ from firebase import db
 app = Flask(__name__)
 
 @app.route("/")
+def uitleg_game():
+    return render_template('uitleg_game.html')
+
+@app.route("/besturing")
+def uitleg_besturing():
+    return render_template('uitleg_besturing.html')
+
+@app.route("/start")
 def start_scherm():
     return render_template('start_scherm.html')
 
@@ -42,6 +50,10 @@ def get_score3():
 @app.route("/gameover")
 def game_over():
     return render_template('game_over.html')
+
+@app.route("/highscores")
+def high_scores():
+    return render_template('high_scores.html')
 
 if __name__ == '__main__':
     app.run()
