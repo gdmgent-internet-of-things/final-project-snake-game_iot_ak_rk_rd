@@ -6,6 +6,13 @@ import json, os
 from pygame.math import Vector2
 import pygame.joystick
 
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+
+cred = credentials.Certificate('/Users/ruveydakartal/Desktop/OneDrive - Arteveldehogeschool/2022_2023/Semester 2/iot/final project/final-project-snake-game_iot_ak_rk_rd/flask-app/snake-game-48a68-firebase-adminsdk-vqv8q-aa933bd31d.json')
+firebase_admin.initialize_app(cred)
+db = firestore.client()
 
 pygame.init()
 pygame.joystick.init()
@@ -23,7 +30,7 @@ with open(os.path.join("ps4_keys.json"), 'r+') as file:
 analog_keys = {0:0, 1:0, 2:0, 3:0, 4:-1, 5: -1 }
 joystick_state = {0: 0, 1: 0, 2: 0, 3: 0}
 
-
+final_score = 0
 class SNAKE:
     def __init__(self, start_pos):
         self.body = [start_pos, Vector2(start_pos.x - 1, start_pos.y), Vector2(start_pos.x - 2, start_pos.y)]
@@ -134,6 +141,8 @@ class DOT:
         rgb_color = colorsys.hsv_to_rgb(hue, saturation, brightness)
         self.color = tuple(int(c * 255) for c in rgb_color)
 
+
+
 class MAIN:
     def __init__(self):
       self.snake = SNAKE(Vector2(5, 10))
@@ -169,6 +178,18 @@ class MAIN:
       
 
     def game_over(self):
+        global final_score
+        final_score = len(self.snake.body) - 3
+        print (final_score)
+         # Get a reference to the 'scores' collection in Firestore
+        scores_ref = db.collection('highscores')
+
+        # Create a new document with the final score
+        score_data = {
+        'name': 'John Doe',
+        'score': final_score  # Use the updated score variable
+        }
+        scores_ref.add(score_data)
         pygame.quit()
         sys.exit()
         
@@ -227,6 +248,8 @@ pygame.time.set_timer(SCREEN_UPDATE,150)
 main = MAIN()
 # controller = MyController(interface="/dev/input/js0", connecting_using_ds4drv=False, event_definition=MyEventDefinition)
 # controller.listen()
+
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -293,10 +316,13 @@ while True:
             elif abs(joystick_state[0]) < 0.5 and joystick_state[1] > 0.5:
                 main.snake2.direction = Vector2(0, 1)  # Down
 
-
     # screen.blit(background, (0, 0))
     screen.fill(background_color)
     main.draw_grass()
     main.draw_elements()
     pygame.display.update()
     clock.tick(20)
+
+    
+    
+
