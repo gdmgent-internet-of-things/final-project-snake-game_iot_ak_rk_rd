@@ -10,7 +10,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 
-cred = credentials.Certificate('/Users/ruveydakartal/Desktop/OneDrive - Arteveldehogeschool/2022_2023/Semester 2/iot/final project/final-project-snake-game_iot_ak_rk_rd/flask-app/snake-game-48a68-firebase-adminsdk-vqv8q-aa933bd31d.json')
+cred = credentials.Certificate('./snake-game-48a68-firebase-adminsdk-vqv8q-aa933bd31d.json')
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
