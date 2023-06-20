@@ -15,6 +15,19 @@ body {
   justify-content: center;
 }
 
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.row img {
+  width: 2rem;
+  height: auto;
+  margin: 0 1rem 0.8rem 0;
+
+}
+
 section, form {
   display: flex;
   flex-direction: column;
@@ -53,7 +66,7 @@ button {
   padding: 0.5rem 1.4rem;
   border: none;
   color: #fff;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   transition: 0.3s;
   font-family: 'Bubblegum Sans', cursive;
 }
@@ -120,7 +133,7 @@ label {
 .button-start {
   background-color: transparent;
   border: 1px solid #fff;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
 }
 
 p {
