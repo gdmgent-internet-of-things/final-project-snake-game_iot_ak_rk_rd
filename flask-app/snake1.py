@@ -43,17 +43,16 @@ class SNAKE:
         self.tail = pygame.image.load('Snakes/snake_poep_blauw.png').convert_alpha()
         self.tail_rotation = 0
 
-        self.body_vertical = pygame.image.load('Graphics/body_vertical.png').convert_alpha()
-        self.body_horizontal = pygame.image.load('Graphics/body_horizontal.png').convert_alpha()
+        self.body_vertical = pygame.image.load('Snakes/snake_lichaam_blauw.png').convert_alpha()
+        self.body_rotation = 0
 
-        self.body_tr = pygame.image.load('Graphics/body_tr.png').convert_alpha()
-        self.body_tl = pygame.image.load('Graphics/body_tl.png').convert_alpha()
-        self.body_br = pygame.image.load('Graphics/body_br.png').convert_alpha()
-        self.body_bl = pygame.image.load('Graphics/body_bl.png').convert_alpha()
+        self.turn = pygame.image.load('Snakes/snake_boog_blauw.png').convert_alpha()
+        self.turn_rotation = 0
 
     def draw_snake(self):
         self.update_head_graphics()
         self.update_tail_graphics()
+        self.update_turn_graphics()
 
         for index, block in enumerate(self.body):
             x_pos = int(block.x * cell_size)
@@ -72,16 +71,10 @@ class SNAKE:
                 if previous_block.x == next_block.x:
                     screen.blit(self.body_vertical, block_rect)
                 elif previous_block.y == next_block.y:
-                    screen.blit(self.body_horizontal, block_rect)
+                    screen.blit(self.body_vertical, block_rect)
                 else:
-                    if previous_block.x == -1 and next_block.y == -1 or previous_block.y == -1 and next_block.x == -1:
-                        screen.blit(self.body_tl, block_rect)
-                    elif previous_block.x == -1 and next_block.y == 1 or previous_block.y == 1 and next_block.x == -1:
-                        screen.blit(self.body_bl, block_rect)
-                    elif previous_block.x == 1 and next_block.y == -1 or previous_block.y == -1 and next_block.x == 1:
-                        screen.blit(self.body_tr, block_rect)
-                    elif previous_block.x == 1 and next_block.y == 1 or previous_block.y == 1 and next_block.x == 1:
-                        screen.blit(self.body_br, block_rect)
+                    rotated_turn = pygame.transform.rotate(self.turn, self.turn_rotation)
+                    screen.blit( rotated_turn, block_rect)
 
     def update_head_graphics(self):
         head_relation = self.body[1] - self.body[0]
@@ -104,6 +97,17 @@ class SNAKE:
             self.tail_rotation = 0
         elif tail_relation == Vector2(0, -1):
             self.tail_rotation = 180
+
+    def update_turn_graphics(self):
+        turn_relation = self.body[-2] - self.body[-1]
+        if turn_relation == Vector2(1, 0):
+            self.turn_rotation = 90
+        elif turn_relation == Vector2(-1, 0):
+            self.turn_rotation = 270
+        elif turn_relation == Vector2(0, 1):
+            self.turn_rotation = 0
+        elif turn_relation == Vector2(0, -1):
+            self.turn_rotation = 180
 
     def move_snake(self):
         if self.new_block:
