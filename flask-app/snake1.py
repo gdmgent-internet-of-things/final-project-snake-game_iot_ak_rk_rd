@@ -236,8 +236,6 @@ clock = pygame.time.Clock()
 
 test_surface = pygame.Surface((100,200))
 # Removed background because it is too pixely 
-# background = pygame.image.load("./static/images/bg.png")
-# background = pygame.transform.scale(background, (width, height)
 background_color = (139, 139, 151)
 game_font = pygame.font.Font(None, 45)
 
@@ -271,32 +269,6 @@ while True:
             if event.key == pygame.K_LEFT:
                 if main.snake.direction.x != 1:
                     main.snake.direction = Vector2(-1, 0)
-
-     # Joystick button events
-
-     #currently facing a problem moving snake with d-pad or arrows---------
-#         if event.type == pygame.JOYBUTTONDOWN:
-#     # Handle button presses
-#             if 'circle' in button_keys and hasattr(event, 'button') and event.button == button_keys['circle']:
-#               joystick_state[0] = 1  # Right analog horizontal
-#         elif 'square' in button_keys and hasattr(event, 'button') and event.button == button_keys['square']:
-#               joystick_state[0] = -1  # Left analog horizontal
-#         elif 'x' in button_keys and hasattr(event, 'button') and event.button == button_keys['x']:
-#               joystick_state[1] = -1  # Right analog vertical
-#         elif 'triangle' in button_keys and hasattr(event, 'button') and event.button == button_keys['triangle']:
-#               joystick_state[1] = 1  # Left analog vertical
-
-# # Update the direction of snake2 based on the joystick state
-#         if joystick_state[0] < -0.5:
-#             main.snake2.direction = Vector2(-1, 0)  # Left
-#         elif joystick_state[0] > 0.5:
-#             main.snake2.direction = Vector2(1, 0)  # Right
-#         elif joystick_state[1] < -0.5:
-#             main.snake2.direction = Vector2(0, 1)  # Down
-#         elif joystick_state[1] > 0.5:
-#             main.snake2.direction = Vector2(0, -1)  # Up
-
-
 
         if event.type == pygame.JOYAXISMOTION:
             # Update the joystick state when axes are moved

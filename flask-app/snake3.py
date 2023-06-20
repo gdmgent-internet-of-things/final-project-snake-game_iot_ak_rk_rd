@@ -79,8 +79,7 @@ class SNAKE:
                      screen.blit(self.body_tr,block_rect)
                     elif previous_block.x == 1 and next_block.y == 1 or previous_block.y == 1 and next_block.x == 1:
                      screen.blit(self.body_br,block_rect)
-                     
-                       
+                                          
         
     def update_head_graphics(self):
         head_relation = self.body[1] - self.body[0]
@@ -208,26 +207,23 @@ class MAIN:
         if snakes_alive == 0:
             self.game_over()  # Game over if no snakes are alive
 
-
-
     def game_over(self):
         pygame.quit()
         sys.exit()
         
-        
-    # def draw_grass(self):
-    #     grass_color = (167,209,61)
-    #     for row in range(cell_number):
-    #         if row % 2 == 0:
-    #             for col in range(cell_number):
-    #                 if col % 2 == 0:
-    #                     grass_rect = pygame.Rect(col * cell_size, row * cell_size,cell_size,cell_size)
-    #                     pygame.draw.rect(screen,grass_color,grass_rect)
-    #         else:
-    #             for col in range(cell_number):
-    #                 if col % 2 != 0:
-    #                    grass_rect = pygame.Rect(col * cell_size, row * cell_size,cell_size,cell_size)
-    #                    pygame.draw.rect(screen,grass_color,grass_rect)
+    def draw_grass(self):
+        grass_color = (43,43,48)
+        for row in range(cell_number):
+            if row % 2 == 0:
+                for col in range(cell_number):
+                    if col % 2 == 0:
+                        grass_rect = pygame.Rect(col * cell_size, row * cell_size,cell_size,cell_size)
+                        pygame.draw.rect(screen,grass_color,grass_rect)
+            else:
+                for col in range(cell_number):
+                    if col % 2 != 0:
+                       grass_rect = pygame.Rect(col * cell_size, row * cell_size,cell_size,cell_size)
+                       pygame.draw.rect(screen,grass_color,grass_rect)
         
         
         
@@ -268,8 +264,7 @@ clock = pygame.time.Clock()
 
 test_surface = pygame.Surface((100,200))
 # Removed background because it is too pixely 
-background = pygame.image.load("images/background.png")
-background = pygame.transform.scale(background, (width, height))
+background_color = (139, 139, 151)
 game_font = pygame.font.Font(None, 45)
 
 SCREEN_UPDATE = pygame.USEREVENT
@@ -302,31 +297,6 @@ while True:
                 if main.snake.direction.x != 1:
                     main.snake.direction = Vector2(-1, 0)
 
-     # Joystick button events
-
-     #currently facing a problem moving snake with d-pad or arrows---------
-#         if event.type == pygame.JOYBUTTONDOWN:
-#     # Handle button presses
-#             if 'circle' in button_keys and hasattr(event, 'button') and event.button == button_keys['circle']:
-#               joystick_state[0] = 1  # Right analog horizontal
-#         elif 'square' in button_keys and hasattr(event, 'button') and event.button == button_keys['square']:
-#               joystick_state[0] = -1  # Left analog horizontal
-#         elif 'x' in button_keys and hasattr(event, 'button') and event.button == button_keys['x']:
-#               joystick_state[1] = -1  # Right analog vertical
-#         elif 'triangle' in button_keys and hasattr(event, 'button') and event.button == button_keys['triangle']:
-#               joystick_state[1] = 1  # Left analog vertical
-
-# # Update the direction of snake2 based on the joystick state
-#         if joystick_state[0] < -0.5:
-#             main.snake2.direction = Vector2(-1, 0)  # Left
-#         elif joystick_state[0] > 0.5:
-#             main.snake2.direction = Vector2(1, 0)  # Right
-#         elif joystick_state[1] < -0.5:
-#             main.snake2.direction = Vector2(0, 1)  # Down
-#         elif joystick_state[1] > 0.5:
-#             main.snake2.direction = Vector2(0, -1)  # Up
-
-
 
         if event.type == pygame.JOYAXISMOTION:
             # Update the joystick state when axes are moved
@@ -346,7 +316,8 @@ while True:
                 main.snake2.direction = Vector2(0, 1)  # Down
 
 
-    screen.blit(background, (0, 0))
+    screen.fill(background_color)
+    main.draw_grass()
     main.draw_elements()
     pygame.display.update()
     clock.tick(10)
