@@ -99,15 +99,19 @@ class SNAKE:
             self.tail_rotation = 180
 
     def update_turn_graphics(self):
-        turn_relation = self.body[-2] - self.body[-1]
-        if turn_relation == Vector2(1, 0):
-            self.turn_rotation = 90
-        elif turn_relation == Vector2(-1, 0):
-            self.turn_rotation = 270
-        elif turn_relation == Vector2(0, 1):
-            self.turn_rotation = 0
-        elif turn_relation == Vector2(0, -1):
-            self.turn_rotation = 180
+        if len(self.body) >= 2:
+            turn_relation = self.body[-2] - self.body[-1]
+            next_block = self.body[-1] - self.body[-2]
+            
+            if turn_relation.x == 1 and next_block.y == -1:
+                self.turn_rotation = 0  # Right turn, snake moves up
+            elif turn_relation.x == -1 and next_block.y == 1:
+                self.turn_rotation = 90  # Right turn, snake moves down
+            elif turn_relation.y == 1 and next_block.x == 1:
+                self.turn_rotation = 270  # Right turn, snake moves left
+            elif turn_relation.y == -1 and next_block.x == -1:
+                self.turn_rotation = 180  # Right turn, snake moves right
+
 
     def move_snake(self):
         if self.new_block:
