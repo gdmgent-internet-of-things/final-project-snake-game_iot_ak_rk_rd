@@ -19,6 +19,7 @@ section, form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 45%;
   background-color: #373739;
   color: #fff;
   padding: 3rem 4rem;
@@ -37,6 +38,14 @@ h1 {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  margin-bottom: 1rem;
+}
+
+.buttons-besturing {
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+  
 }
 
 button {
@@ -44,7 +53,7 @@ button {
   padding: 0.5rem 1.4rem;
   border: none;
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   transition: 0.3s;
   font-family: 'Bubblegum Sans', cursive;
 }
@@ -102,7 +111,6 @@ label {
 
 .label-orange {
   color: #FF6300;
-
 }
 
 .input-orange {
@@ -112,16 +120,12 @@ label {
 .button-start {
   background-color: transparent;
   border: 1px solid #fff;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
 }
 
 p {
  font-size: 1.4rem;
  margin: 0 0 1rem;
-}
-
-.hidden {
-  display: none;
 }
 
 /* colors */

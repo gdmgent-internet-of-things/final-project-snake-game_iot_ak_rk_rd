@@ -223,7 +223,6 @@ game_font = pygame.font.Font(None, 45)
 SCREEN_UPDATE = pygame.USEREVENT
 pygame.time.set_timer(SCREEN_UPDATE,150) 
 
-
 main = MAIN()
 # controller = MyController(interface="/dev/input/js0", connecting_using_ds4drv=False, event_definition=MyEventDefinition)
 # controller.listen()

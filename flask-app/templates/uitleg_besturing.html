@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <title>Snake Game</title>
+</head>
+<body>
+  <section>
+    <h1>De besturing</h1>
+    <div>
+      <p class="label-blue">Snake 1: met de joystick, vrij simpel links is naar links,
+        rechts is naar rechts, naar boven is naar boven en
+        naar onder is naar onder.</p>
+  
+      <p class="label-green">Snake 2: met de micro, hierbij moet je als je een richting
+        uit wilt zeggen naar waar de snake moet, links is links,
+        rechts is rechts, boven is boven en onder is onder.</p>
+      
+      <p class="label-orange">Snake 3: met de sensor, hierbij moet je zwaaien naar de
+        richting naar waar de snake moet, links zwaaien is links,
+        rechts zwaaien is rechts, naar boven zwaaien is naar boven
+        en naar onder zwaaien is naar onder.</p>
+    </div>
+
+    <div class="buttons-besturing">
+      <a href="/">
+        <button class="button-start">Vorige</button>
+      </a>
+      <a href="/start">
+        <button class="button-start">Volgende</button>
+      </a>
+
+    </div>
+    
+  </section>
+</body>
+</html>
