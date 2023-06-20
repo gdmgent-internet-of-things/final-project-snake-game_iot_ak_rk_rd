@@ -176,32 +176,39 @@ class MAIN:
             self.snake3.add_block()
     
     def check_fail(self):
-      #om te zien of de snake buite et scherm is
-      if not 0 <= self.snake.body[0].x < cell_number or not 0 <= self.snake.body[0].y < cell_number:
-          self.game_over()
-      
-      #als de snake zichzelf aanraakt
-      for block in self.snake.body[1:]:
-         if block == self.snake.body[0]:
+        snakes_alive = 0  # Initialize the counter for alive snakes
+        
+        if not 0 <= self.snake.body[0].x < cell_number or not 0 <= self.snake.body[0].y < cell_number:
             self.game_over()
-      
+        else:
+            snakes_alive += 1  # Increment counter if snake is alive
 
-      if not 0 <= self.snake2.body[0].x < cell_number or not 0 <= self.snake2.body[0].y < cell_number:
-          self.game_over()
-      
-      #als de snake zichzelf aanraakt
-      for block in self.snake2.body[1:]:
-         if block == self.snake2.body[0]:
+        for block in self.snake.body[1:]:
+            if block == self.snake.body[0]:
+                self.game_over()
+        
+        if not 0 <= self.snake2.body[0].x < cell_number or not 0 <= self.snake2.body[0].y < cell_number:
             self.game_over()
+        else:
+            snakes_alive += 1  # Increment counter if snake2 is alive
 
-      
-      if not 0 <= self.snake3.body[0].x < cell_number or not 0 <= self.snake3.body[0].y < cell_number:
-        self.game_over()
-      
-      #als de snake zichzelf aanraakt
-      for block in self.snake3.body[1:]:
-         if block == self.snake3.body[0]:
+        for block in self.snake2.body[1:]:
+            if block == self.snake2.body[0]:
+                self.game_over()
+
+        if not 0 <= self.snake3.body[0].x < cell_number or not 0 <= self.snake3.body[0].y < cell_number:
             self.game_over()
+        else:
+            snakes_alive += 1  # Increment counter if snake3 is alive
+
+        for block in self.snake3.body[1:]:
+            if block == self.snake3.body[0]:
+                self.game_over()
+
+        if snakes_alive == 0:
+            self.game_over()  # Game over if no snakes are alive
+
+
 
     def game_over(self):
         pygame.quit()
@@ -342,19 +349,4 @@ while True:
     screen.blit(background, (0, 0))
     main.draw_elements()
     pygame.display.update()
-    clock.tick(20)
-
-
-# using keyboard
-            # if event.key == pygame.K_z:
-            #     if main.snake2.direction.y != 1: 
-            #        main.snake2.direction = Vector2(0,-1)
-            # if event.key == pygame.K_s:
-            #     if main.snake2.direction.y != -1: 
-            #        main.snake2.direction = Vector2(0,1)
-            # if event.key == pygame.K_d:
-            #     if main.snake2.direction.x != -1: 
-            #        main.snake2.direction = Vector2(1,0)
-            # if event.key == pygame.K_q:
-            #     if main.snake2.direction.x != 1: 
-            #        main.snake2.direction = Vector2(-1,0)
+    clock.tick(10)

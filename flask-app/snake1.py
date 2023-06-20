@@ -320,7 +320,7 @@ while True:
     main.draw_grass()
     main.draw_elements()
     pygame.display.update()
-    clock.tick(20)
+    clock.tick(10)
 
     
     

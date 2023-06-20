@@ -331,7 +331,7 @@ while True:
     screen.blit(background, (0, 0))
     main.draw_elements()
     pygame.display.update()
-    clock.tick(20)
+    clock.tick(10)
 
 
 # using keyboard
