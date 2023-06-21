@@ -79,6 +79,7 @@ function gameLoop() {
     moveSnakes();
     drawSnakes();
     drawFood();
+    updateScore();
     if (!gameOver()) {
       gameLoop();
     }
@@ -173,6 +174,17 @@ function generateFood() {
 function drawFood() {
   context.fillStyle = "red";
   context.fillRect(food.x * boxSize, food.y * boxSize, boxSize, boxSize);
+}
+
+function updateScore() {
+  const scoreElement = document.getElementById("score");
+  scoreElement.innerHTML = `
+    <span class="label-blue">Snake 1: ${snakes[0].score}</span>
+    |
+    <span class="label-green">Snake 2: ${snakes[1].score}</span>
+    |
+    <span class="label-orange">Snake 3: ${snakes[2].score}</span>
+  `;
 }
 
 // Check if the game is over

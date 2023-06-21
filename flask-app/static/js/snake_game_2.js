@@ -66,6 +66,7 @@ function gameLoop() {
     moveSnakes();
     drawSnakes();
     drawFoods();
+    updateScore();
     if (!gameOver()) {
       gameLoop();
     }
@@ -167,7 +168,14 @@ function drawFoods() {
   });
 }
 
-// ...
+function updateScore() {
+  const scoreElement = document.getElementById("score");
+  scoreElement.innerHTML = `
+    <span class="label-blue">Snake 1: ${snakes[0].score}</span>
+    |
+    <span class="label-green">Snake 2: ${snakes[1].score}</span>
+  `;
+}
 
 // Check if the game is over
 function gameOver() {

@@ -8,7 +8,7 @@ html {
 }
 
 #gameCanvas {
-  margin-top: 3rem;
+  margin-top: 4rem;
   border: solid white 5px;
 }
 
@@ -16,7 +16,13 @@ html {
   position: absolute;
 }
 
-.game-over-dialog button {}
+#score {
+  color: #fff;
+  font-size: 1.5rem;
+  background-color: #373739;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+}
 
 body {
   height: 90vh;
@@ -53,6 +59,13 @@ form,
   border: 2px solid #fff;
   border-radius: 10px;
   box-shadow: -12px -12px 12px 0px #252526, 12px 12px 12px 0px #252526;
+}
+
+.button-start,
+.game-over-dialog button {
+  background-color: transparent;
+  border: 1px solid #fff;
+  font-size: 1.8rem;
 }
 
 h1 {
@@ -141,13 +154,6 @@ label {
 
 .input-orange {
   background-color: #F5D3BE;
-}
-
-.button-start,
-.game-over-dialog button {
-  background-color: transparent;
-  border: 1px solid #fff;
-  font-size: 1.8rem;
 }
 
 p {
