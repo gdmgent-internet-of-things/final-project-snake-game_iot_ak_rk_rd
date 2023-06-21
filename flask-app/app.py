@@ -41,25 +41,6 @@ def snake_2():
 def snake_3():
     return render_template('snake_3.html')
 
-
-# @app.route("/getscore", methods=["POST"])
-# def get_score():
-#     player_name = request.form.get('player_name')  # Get the value of the input field
-#     subprocess.Popen(["python", "snake1.py", player_name])
-#     return render_template('get_score.html')
-
-# @app.route("/getscore2", methods=["POST"])
-# def get_score2():
-#     # Run the snake.py file as a separate process
-#     subprocess.Popen(["python", "snake2.py"])
-#     return render_template('get_score.html')
-
-# @app.route("/getscore3", methods=["POST"])
-# def get_score3():
-#     # Run the snake.py file as a separate process
-#     subprocess.Popen(["python", "snake3.py"])
-#     return render_template('get_score.html')
-
 @app.route("/highscores")
 def high_scores():
     return render_template('high_scores.html')
