@@ -182,12 +182,14 @@ class MAIN:
         global final_score
         final_score = len(self.snake.body) - 3
         print (final_score)
+        
+        player_name = sys.argv[1]
          # Get a reference to the 'scores' collection in Firestore
         scores_ref = db.collection('highscores')
-
+        
         # Create a new document with the final score
         score_data = {
-        'name': 'John Doe',
+        'name': player_name,
         'score': final_score  # Use the updated score variable
         }
         scores_ref.add(score_data)

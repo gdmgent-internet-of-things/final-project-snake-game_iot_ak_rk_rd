@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import subprocess
 from firebase import db
 
@@ -31,8 +31,8 @@ def name_3players():
 
 @app.route("/getscore", methods=["POST"])
 def get_score():
-    # Run the snake.py file as a separate process
-    subprocess.Popen(["python", "snake1.py"])
+    player_name = request.form.get('player_name')  # Get the value of the input field
+    subprocess.Popen(["python", "snake1.py", player_name])
     return render_template('get_score.html')
 
 @app.route("/getscore2", methods=["POST"])
