@@ -17,14 +17,7 @@ let snakes = [
     score: 0,
     headImage: new Image(),
     bodyImage: new Image()
-  },
-  {
-    body: [{ x: 15, y: 10 }],
-    direction: "left",
-    score: 0,
-    headImage: new Image(),
-    bodyImage: new Image()
-  },
+  }
 ];
 let food = {
   x: Math.floor(Math.random() * canvasSize),
@@ -37,9 +30,6 @@ snakes[0].bodyImage.src = "../static/Snakes/snake_lichaam_blauw.png";
 
 snakes[1].headImage.src = "../static/Snakes/snake_hooft_groen.png";
 snakes[1].bodyImage.src = "../static/Snakes/snake_lichaam_groen.png";
-
-snakes[2].headImage.src = "../static/Snakes/snake_hooft_oragne.png";
-snakes[2].bodyImage.src = "../static/Snakes/snake_lichaam_oragne.png";
 
 // Handle keyboard events
 document.addEventListener("keydown", changeDirection);
@@ -67,17 +57,6 @@ function changeDirection(event) {
     snakes[1].direction = "left";
   } else if (key === 68 && snakes[1].direction !== "left") {
     snakes[1].direction = "right";
-  }
-
-  // Control the third snake with numpad keys
-  if (key === 97 && snakes[2].direction !== "right") {
-    snakes[2].direction = "left";
-  } else if (key === 98 && snakes[2].direction !== "up") {
-    snakes[2].direction = "down";
-  } else if (key === 99 && snakes[2].direction !== "left") {
-    snakes[2].direction = "right";
-  } else if (key === 100 && snakes[2].direction !== "down") {
-    snakes[2].direction = "up";
   }
 }
 
@@ -171,17 +150,19 @@ function rotateHeadImage(image, direction) {
   return rotatedImage;
 }
 
-// Generate food at a random location
+// Generate food at a random location with a random color
 function generateFood() {
+  const randomColor = fruitColors[Math.floor(Math.random() * fruitColors.length)];
   food = {
     x: Math.floor(Math.random() * canvasSize),
     y: Math.floor(Math.random() * canvasSize),
+    color: randomColor,
   };
 }
 
 // Draw the food
 function drawFood() {
-  context.fillStyle = "red";
+  context.fillStyle = food.color;
   context.fillRect(food.x * boxSize, food.y * boxSize, boxSize, boxSize);
 }
 
@@ -191,8 +172,6 @@ function updateScore() {
     <span class="label-blue">Snake 1: ${snakes[0].score}</span>
     |
     <span class="label-green">Snake 2: ${snakes[1].score}</span>
-    |
-    <span class="label-orange">Snake 3: ${snakes[2].score}</span>
   `;
 }
 
@@ -253,5 +232,6 @@ function redirectToGameOver() {
   window.location.href = "/start";
 }
 
+generateFood();
 // Start the game
 gameLoop();

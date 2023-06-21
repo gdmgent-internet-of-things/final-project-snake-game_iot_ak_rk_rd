@@ -71,7 +71,7 @@ function gameLoop() {
     clearCanvas();
     moveSnakes();
     drawSnakes();
-    drawFoods();
+    drawFood();
     updateScore();
     if (!gameOver()) {
       gameLoop();
@@ -86,7 +86,7 @@ function clearCanvas() {
 
 // Move the snakes
 function moveSnakes() {
-  snakes.forEach(function (snake) {
+  snakes.forEach(function (snake, snakeIndex) {
     const head = {
       x: snake.body[0].x,
       y: snake.body[0].y
@@ -104,7 +104,7 @@ function moveSnakes() {
 
     snake.body.unshift(head);
 
-    // Check if the snake eats the food
+    // Check if the snake eats its corresponding food
     const foodIndex = foods.findIndex(food => food.x === head.x && food.y === head.y);
     if (foodIndex !== -1) {
       foods.splice(foodIndex, 1);
@@ -115,6 +115,7 @@ function moveSnakes() {
     }
   });
 }
+
 
 // Draw the snakes
 function drawSnakes() {
@@ -159,22 +160,30 @@ function rotateHeadImage(image, direction) {
   return rotatedImage;
 }
 
-// Generate food at a random location
+const fruitColors = ["#F60000", "#FF8C00", "#FFEE00", "#4DE94C", "#3783FF", "#4815AA"];
+
+// Generate food at a random location with a random color
 function generateFood() {
+  const randomColor = fruitColors[Math.floor(Math.random() * fruitColors.length)];
+  foods = [];
+
   const food = {
     x: Math.floor(Math.random() * canvasSize),
-    y: Math.floor(Math.random() * canvasSize)
+    y: Math.floor(Math.random() * canvasSize),
+    color: randomColor
   };
   foods.push(food);
 }
 
+
 // Draw the food
-function drawFoods() {
+function drawFood() {
   foods.forEach(function (food) {
-    context.fillStyle = "red";
+    context.fillStyle = food.color;
     context.fillRect(food.x * boxSize, food.y * boxSize, boxSize, boxSize);
   });
 }
+
 
 function updateScore() {
   const scoreElement = document.getElementById("score");
@@ -250,6 +259,6 @@ function redirectToGameOver() {
   window.location.href = "/start";
 }
 
-// Start the game
 generateFood();
+// Start the game
 gameLoop();

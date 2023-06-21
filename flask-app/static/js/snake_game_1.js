@@ -131,9 +131,21 @@ function generateFood() {
   };
 }
 
+const fruitColors = ["#F60000", "#FF8C00", "#FFEE00", "#4DE94C", "#3783FF", "#4815AA"];
+
+// Generate food at a random location with a random color
+function generateFood() {
+  const randomColor = fruitColors[Math.floor(Math.random() * fruitColors.length)];
+  food = {
+    x: Math.floor(Math.random() * canvasSize),
+    y: Math.floor(Math.random() * canvasSize),
+    color: randomColor,
+  };
+}
+
 // Draw the food
 function drawFood() {
-  context.fillStyle = "red";
+  context.fillStyle = food.color;
   context.fillRect(food.x * boxSize, food.y * boxSize, boxSize, boxSize);
 }
 
@@ -185,5 +197,6 @@ function redirectToGameOver() {
   window.location.href = "/start";
 }
 
+generateFood();
 // Start the game
 gameLoop();
