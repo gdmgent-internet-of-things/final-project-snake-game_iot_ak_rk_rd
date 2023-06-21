@@ -1,3 +1,4 @@
+
 // Game variables
 const canvas = document.getElementById("gameCanvas");
 const context = canvas.getContext("2d");
@@ -123,6 +124,7 @@ function rotateHeadImage(image) {
   return rotatedImage;
 }
 
+
 // Generate food at a random location
 function generateFood() {
   food = {
@@ -149,11 +151,11 @@ function drawFood() {
   context.fillRect(food.x * boxSize, food.y * boxSize, boxSize, boxSize);
 }
 
-// Update the score on the webpage
-function updateScore() {
+function updateScore(playerName) {
   const scoreElement = document.getElementById("score");
-  scoreElement.innerHTML = `<span class="label-blue">Snake 1: ${score}</span>`;
+  scoreElement.innerHTML = `<span class="label-blue"> Snake: ${score}</span>`;
 }
+
 
 // Check if the game is over
 function gameOver() {
