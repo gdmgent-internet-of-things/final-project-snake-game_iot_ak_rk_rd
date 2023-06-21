@@ -1,5 +1,3 @@
-
-
 // Game variables
 const canvas = document.getElementById("gameCanvas");
 const context = canvas.getContext("2d");
@@ -19,7 +17,14 @@ let snakes = [
     score: 0,
     headImage: new Image(),
     bodyImage: new Image()
-  }
+  },
+  {
+    body: [{ x: 15, y: 10 }],
+    direction: "left",
+    score: 0,
+    headImage: new Image(),
+    bodyImage: new Image()
+  },
 ];
 let food = {
   x: Math.floor(Math.random() * canvasSize),
@@ -32,6 +37,9 @@ snakes[0].bodyImage.src = "../static/Snakes/snake_lichaam_blauw.png";
 
 snakes[1].headImage.src = "../static/Snakes/snake_hooft_groen.png";
 snakes[1].bodyImage.src = "../static/Snakes/snake_lichaam_groen.png";
+
+snakes[2].headImage.src = "../static/Snakes/snake_hooft_oragne.png";
+snakes[2].bodyImage.src = "../static/Snakes/snake_lichaam_oragne.png";
 
 // Handle keyboard events
 document.addEventListener("keydown", changeDirection);
@@ -59,6 +67,17 @@ function changeDirection(event) {
     snakes[1].direction = "left";
   } else if (key === 68 && snakes[1].direction !== "left") {
     snakes[1].direction = "right";
+  }
+
+  // Control the third snake with numpad keys
+  if (key === 97 && snakes[2].direction !== "right") {
+    snakes[2].direction = "left";
+  } else if (key === 98 && snakes[2].direction !== "up") {
+    snakes[2].direction = "down";
+  } else if (key === 99 && snakes[2].direction !== "left") {
+    snakes[2].direction = "right";
+  } else if (key === 100 && snakes[2].direction !== "down") {
+    snakes[2].direction = "up";
   }
 }
 
@@ -152,6 +171,16 @@ function rotateHeadImage(image, direction) {
   return rotatedImage;
 }
 
+// Generate food at a random location
+function generateFood() {
+  food = {
+    x: Math.floor(Math.random() * canvasSize),
+    y: Math.floor(Math.random() * canvasSize),
+  };
+}
+
+const fruitColors = ["#F60000", "#FF8C00", "#FFEE00", "#4DE94C", "#3783FF", "#4815AA"];
+
 // Generate food at a random location with a random color
 function generateFood() {
   const randomColor = fruitColors[Math.floor(Math.random() * fruitColors.length)];
@@ -174,6 +203,8 @@ function updateScore() {
     <span class="label-blue">Snake 1: ${snakes[0].score}</span>
     |
     <span class="label-green">Snake 2: ${snakes[1].score}</span>
+    |
+    <span class="label-orange">Snake 3: ${snakes[2].score}</span>
   `;
 }
 
