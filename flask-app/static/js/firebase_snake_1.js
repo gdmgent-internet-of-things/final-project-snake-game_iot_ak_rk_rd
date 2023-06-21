@@ -44,3 +44,22 @@ async function updateHighscore(docId, name, score) {
 // Replace 'docId' with the actual document ID you want to update
 const docId = "snake";
 await updateHighscore(docId, "snake", score);
+
+
+async function commitHighscore(name, score) {
+  try {
+    const highscoresRef = collection(db, "high_scores");
+
+    // Create a new document with an auto-generated ID
+    const docRef = await addDoc(highscoresRef, {
+      name: name,
+      score: score
+    });
+
+    console.log("Highscore committed successfully with ID:", docRef.id);
+  } catch (error) {
+    console.error("Error committing highscore:", error);
+  }
+}
+
+await commitHighscore("test", score);
