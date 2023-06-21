@@ -8,16 +8,22 @@ let snakes = [
     body: [{ x: 10, y: 10 }],
     direction: "right",
     score: 0,
+    headImage: new Image(),
+    bodyImage: new Image()
   },
   {
     body: [{ x: 10, y: 15 }],
     direction: "right",
     score: 0,
+    headImage: new Image(),
+    bodyImage: new Image()
   },
   {
     body: [{ x: 15, y: 10 }],
     direction: "left",
     score: 0,
+    headImage: new Image(),
+    bodyImage: new Image()
   },
 ];
 let food = {
@@ -26,11 +32,14 @@ let food = {
 };
 
 // Snake images
-const headImage = new Image();
-headImage.src = "../static/Snakes/snake_hooft_blauw.png";
+snakes[0].headImage.src = "../static/Snakes/snake_hooft_blauw.png";
+snakes[0].bodyImage.src = "../static/Snakes/snake_lichaam_blauw.png";
 
-const bodyImage = new Image();
-bodyImage.src = "../static/Snakes/snake_lichaam_blauw.png";
+snakes[1].headImage.src = "../static/Snakes/snake_hooft_groen.png";
+snakes[1].bodyImage.src = "../static/Snakes/snake_lichaam_groen.png";
+
+snakes[2].headImage.src = "../static/Snakes/snake_hooft_oragne.png";
+snakes[2].bodyImage.src = "../static/Snakes/snake_lichaam_oragne.png";
 
 // Handle keyboard events
 document.addEventListener("keydown", changeDirection);
@@ -136,9 +145,9 @@ function drawSnakes() {
 // Get the image for the snake segment based on its position
 function getSnakeSegmentImage(snakeIndex, segmentIndex) {
   if (segmentIndex === 0) {
-    return rotateHeadImage(headImage, snakes[snakeIndex].direction);
+    return rotateHeadImage(snakes[snakeIndex].headImage, snakes[snakeIndex].direction);
   } else {
-    return bodyImage;
+    return snakes[snakeIndex].bodyImage;
   }
 }
 

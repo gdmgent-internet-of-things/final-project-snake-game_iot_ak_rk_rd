@@ -24,11 +24,17 @@ let snakes = [
 let foods = [];
 
 // Snake images
-const headImage = new Image();
-headImage.src = "../static/Snakes/snake_hooft_blauw.png";
+const headImage1 = new Image(); // Snake 1 head image
+headImage1.src = "../static/Snakes/snake_hooft_blauw.png";
 
-const bodyImage = new Image();
-bodyImage.src = "../static/Snakes/snake_lichaam_blauw.png";
+const headImage2 = new Image(); // Snake 2 head image
+headImage2.src = "../static/Snakes/snake_hooft_groen.png";
+
+const bodyImage1 = new Image(); // Snake 1 body image
+bodyImage1.src = "../static/Snakes/snake_lichaam_blauw.png";
+
+const bodyImage2 = new Image(); // Snake 2 body image
+bodyImage2.src = "../static/Snakes/snake_lichaam_groen.png";
 
 // Handle keyboard events
 document.addEventListener("keydown", changeDirection);
@@ -125,8 +131,10 @@ function drawSnakes() {
 // Get the image for the snake segment based on its position
 function getSnakeSegmentImage(segmentIndex, snakeIndex) {
   if (segmentIndex === 0) {
+    const headImage = (snakeIndex === 0) ? headImage1 : headImage2;
     return rotateHeadImage(headImage, snakes[snakeIndex].direction);
   } else {
+    const bodyImage = (snakeIndex === 0) ? bodyImage1 : bodyImage2;
     return bodyImage;
   }
 }
