@@ -171,14 +171,6 @@ function rotateHeadImage(image, direction) {
   return rotatedImage;
 }
 
-// Generate food at a random location
-function generateFood() {
-  food = {
-    x: Math.floor(Math.random() * canvasSize),
-    y: Math.floor(Math.random() * canvasSize),
-  };
-}
-
 const fruitColors = ["#F60000", "#FF8C00", "#FFEE00", "#4DE94C", "#3783FF", "#4815AA"];
 
 // Generate food at a random location with a random color

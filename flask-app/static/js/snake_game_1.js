@@ -1,3 +1,5 @@
+// import { updateHighscore } from "./firebase_snake_1";
+
 // Game variables
 const canvas = document.getElementById("gameCanvas");
 const context = canvas.getContext("2d");
@@ -47,7 +49,13 @@ function gameLoop() {
     updateScore();
     if (!gameOver()) {
       gameLoop();
-    }
+    } 
+    // else {
+    //   // Update highscore here
+    //   const docId = "snake";
+    //   updateHighscore(docId, "snake", score);
+      
+    // }
   }, 100);
 }
 
@@ -121,14 +129,6 @@ function rotateHeadImage(image) {
 
   ctx.drawImage(image, -boxSize / 2, -boxSize / 2, boxSize, boxSize);
   return rotatedImage;
-}
-
-// Generate food at a random location
-function generateFood() {
-  food = {
-    x: Math.floor(Math.random() * canvasSize),
-    y: Math.floor(Math.random() * canvasSize)
-  };
 }
 
 const fruitColors = ["#F60000", "#FF8C00", "#FFEE00", "#4DE94C", "#3783FF", "#4815AA"];

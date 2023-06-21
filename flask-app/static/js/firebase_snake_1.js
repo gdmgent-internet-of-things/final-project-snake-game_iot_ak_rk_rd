@@ -26,7 +26,7 @@ async function getHighscores(db) {
   return scoreList;
 }
 
-async function updateHighscore(docId, name, score) {
+export async function updateHighscore(docId, name, score) {
   try {
     const highscoresRef = doc(db, "snake_game_1", docId);
 
