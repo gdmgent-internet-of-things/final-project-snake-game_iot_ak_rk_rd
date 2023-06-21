@@ -47,13 +47,22 @@ def get_score3():
     subprocess.Popen(["python", "snake3.py"])
     return render_template('get_score.html')
 
-@app.route("/gameover")
-def game_over():
-    return render_template('game_over.html')
-
 @app.route("/highscores")
 def high_scores():
     return render_template('high_scores.html')
+
+@app.route("/snake-game-1-player")
+def snake_1():
+    return render_template('snake_1.html')
+
+@app.route("/snake-game-2-players")
+def snake_2():
+    return render_template('snake_2.html')
+
+@app.route("/snake-game-3-players")
+def snake_3():
+    return render_template('snake_3.html')
+
 
 if __name__ == '__main__':
     app.run()

@@ -7,6 +7,17 @@ html {
   padding: 0;
 }
 
+#gameCanvas {
+  margin-top: 3rem;
+  border: solid white 5px;
+}
+
+.game-over-dialog {
+  position: absolute;
+}
+
+.game-over-dialog button {}
+
 body {
   height: 90vh;
   display: flex;
@@ -29,7 +40,8 @@ body {
 }
 
 section,
-form {
+form,
+.game-over-dialog {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -131,7 +143,8 @@ label {
   background-color: #F5D3BE;
 }
 
-.button-start {
+.button-start,
+.game-over-dialog button {
   background-color: transparent;
   border: 1px solid #fff;
   font-size: 1.8rem;
