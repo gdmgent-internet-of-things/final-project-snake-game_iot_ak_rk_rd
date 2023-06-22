@@ -18,13 +18,40 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+const snake1Input = document.getElementById("snake1Input");
+const snake2Input = document.getElementById("snake2Input");
+const startGameButton = document.getElementById("startGameButton");
+
+startGameButton.addEventListener("click", async (event) => {
+  event.preventDefault();
+  const snake1Name = snake1Input.value;
+  const snake2Name = snake2Input.value;
+  const score = 0;
+  if (snake1Name.trim() !== "" && snake2Name.trim() !== "") {
+    try {
+      await commitHighscores([
+        { name: snake1Name, score: score },
+        { name: snake2Name, score: score }
+      ]);
+      await updateHighscores([
+        { docId: "snake_1", name: snake1Name, score: score },
+        { docId: "snake_2", name: snake2Name, score: score }
+      ]);
+      window.location.href = "/snake-game-2-players";
+    } catch (error) {
+      console.error("Error committing highscore:", error);
+    }
+  } else {
+    alert("Please enter a name");
+  }
+});
 
 async function updateHighscores(dataArray) {
   try {
     const highscoresRef = collection(db, "snake_game_2");
 
     for (const data of dataArray) {
-      const { docId, nameField, scoreField, name, score } = data;
+      const { docId, name, score } = data;
       const docRef = doc(highscoresRef, docId);
       await updateDoc(docRef, {
         name: name,
@@ -37,30 +64,14 @@ async function updateHighscores(dataArray) {
   }
 }
 
-// Specify the data array with document IDs, field names, and values to update
-const dataArray = [
-  { docId: "snake_1", name: "snake1", score: 100 },
-  { docId: "snake_2", name: "snake2", score: 200 }
-];
-
-await updateHighscores(dataArray);
-
-const highscoreArray = [
-  { name: "snake1", score: 100 },
-  { name: "snake2", score: 200 }
-];
-
 async function commitHighscores(highscoreArray) {
   for (const { name, score } of highscoreArray) {
     try {
       const highscoresRef = collection(db, "high_scores");
-      const docRef = await addDoc(highscoresRef, { name, score });
-      console.log("Highscore committed successfully with ID:", docRef.id);
+      await addDoc(highscoresRef, { name, score });
+      console.log("Highscore committed successfully");
     } catch (error) {
       console.error("Error committing highscore:", error);
     }
   }
 }
-
-await commitHighscores(highscoreArray);
-
