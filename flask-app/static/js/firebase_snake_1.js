@@ -18,6 +18,26 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+const startGameButton = document.getElementById("startGameButton");
+const playerNameInput = document.getElementById("player_name");
+
+startGameButton.addEventListener("click", async (event) => {
+  event.preventDefault();
+  const playerName = playerNameInput.value;
+  const score = 0; // Replace with the actual score value
+  if (playerName.trim() !== "") {
+    try {
+      await commitHighscore(playerName, score);
+      await updateHighscore(playerName, score);
+      window.location.href = "/snake-game-1-player"; // Redirect to the game page
+    } catch (error) {
+      console.error("Error committing highscore:", error);
+    }
+  } else {
+    alert("Please enter a name");
+  }
+});
+
 export async function updateHighscore(docId, name, score) {
   try {
     const highscoresRef = doc(db, "snake_game_1", docId);
@@ -35,7 +55,7 @@ export async function updateHighscore(docId, name, score) {
 
 // Replace 'docId' with the actual document ID you want to update
 const docId = "snake";
-await updateHighscore(docId, "snake", score);
+await updateHighscore(docId, playerName, score);
 
 
 async function commitHighscore(name, score) {
@@ -54,4 +74,4 @@ async function commitHighscore(name, score) {
   }
 }
 
-await commitHighscore("snake", score);
+await commitHighscore(playerName, score);

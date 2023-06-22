@@ -22,9 +22,6 @@ headImage.src = "../static/Snakes/snake_hooft_blauw.png";
 const bodyImage = new Image();
 bodyImage.src = "../static/Snakes/snake_lichaam_blauw.png";
 
-// Handle keyboard events
-document.addEventListener("keydown", changeDirection);
-
 // Handle touch events
 canvas.addEventListener("touchstart", handleTouchStart);
 canvas.addEventListener("touchmove", handleTouchMove);
@@ -62,19 +59,6 @@ function handleTouchMove(event) {
 
   touchStartX = null;
   touchStartY = null;
-}
-
-function changeDirection(event) {
-  const key = event.keyCode;
-  if (key === 37 && direction !== "right") {
-    direction = "left";
-  } else if (key === 38 && direction !== "down") {
-    direction = "up";
-  } else if (key === 39 && direction !== "left") {
-    direction = "right";
-  } else if (key === 40 && direction !== "up") {
-    direction = "down";
-  }
 }
 
 // Game loop

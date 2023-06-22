@@ -41,8 +41,7 @@ function checkGamepadInput() {
       snakes[0].direction = "left";
     } else if (axes[0] > 0.5 && snakes[0].direction !== "left") {
       snakes[0].direction = "right";
-    }
-    else if (axes[1] < -0.5 && snakes[0].direction !== "down") {
+    }else if (axes[1] < -0.5 && snakes[0].direction !== "down") {
       snakes[0].direction = "up";
     } else if (axes[1] > 0.5 && snakes[0].direction !== "up") {
       snakes[0].direction = "down";
@@ -91,24 +90,44 @@ bodyImage1.src = "../static/Snakes/snake_lichaam_blauw.png";
 const bodyImage2 = new Image(); // Snake 2 body image
 bodyImage2.src = "../static/Snakes/snake_lichaam_groen.png";
 
-// Handle keyboard events
-document.addEventListener("keydown", changeDirection);
+// Handle touch events
+canvas.addEventListener("touchstart", handleTouchStart);
+canvas.addEventListener("touchmove", handleTouchMove);
 
-function changeDirection(event) {
-  const key = event.keyCode;
+let touchStartX = null;
+let touchStartY = null;
 
-  // Control the second snake with z, s, q, d keys
-  if (key === 90 && snakes[1].direction !== "down") {
-    snakes[1].direction = "up";
-  } else if (key === 83 && snakes[1].direction !== "up") {
-    snakes[1].direction = "down";
-  } else if (key === 81 && snakes[1].direction !== "right") {
-    snakes[1].direction = "left";
-  } else if (key === 68 && snakes[1].direction !== "left") {
-    snakes[1].direction = "right";
-  }
+function handleTouchStart(event) {
+  touchStartX = event.touches[0].clientX;
+  touchStartY = event.touches[0].clientY;
 }
 
+function handleTouchMove(event) {
+  if (!touchStartX || !touchStartY) return;
+
+  const touchEndX = event.touches[0].clientX;
+  const touchEndY = event.touches[0].clientY;
+
+  const dx = touchEndX - touchStartX;
+  const dy = touchEndY - touchStartY;
+
+  if (Math.abs(dx) > Math.abs(dy)) {
+    if (dx > 0 && snakes[1].direction !== "left") {
+      snakes[1].direction = "right";
+    } else if (dx < 0 && snakes[1].direction !== "right") {
+      snakes[1].direction = "left";
+    }
+  } else {
+    if (dy > 0 && snakes[1].direction !== "up") {
+      snakes[1].direction = "down";
+    } else if (dy < 0 && snakes[1].direction !== "down") {
+      snakes[1].direction = "up";
+    }
+  }
+
+  touchStartX = null;
+  touchStartY = null;
+}
 // Game loop
 function gameLoop() {
   setTimeout(function () {
