@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-import { getFirestore, getDocs, collection, addDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -17,14 +17,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
-// Get a list of scores from your database
-async function getHighscores(db) {
-  const scoresCol = collection(db, 'high_scores');
-  const scoreSnapshot = await getDocs(scoresCol);
-  const scoreList = scoreSnapshot.docs.map(doc => doc.data());
-  return scoreList;
-}
 
 export async function updateHighscore(docId, name, score) {
   try {

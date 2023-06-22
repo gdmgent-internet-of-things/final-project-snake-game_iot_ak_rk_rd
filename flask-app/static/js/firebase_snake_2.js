@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-import { getFirestore, getDocs, collection, addDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -39,15 +39,15 @@ async function updateHighscores(dataArray) {
 
 // Specify the data array with document IDs, field names, and values to update
 const dataArray = [
-  { docId: "snake_1", name: "snake1", score: 100 },
-  { docId: "snake_2", name: "snake2", score: 200 }
+  { docId: "snake_1", name: "snake1", score: score },
+  { docId: "snake_2", name: "snake2", score: score }
 ];
 
 await updateHighscores(dataArray);
 
 const highscoreArray = [
-  { name: "snake1", score: 100 },
-  { name: "snake2", score: 200 }
+  { name: "snake1", score: score },
+  { name: "snake2", score: score }
 ];
 
 async function commitHighscores(highscoreArray) {
