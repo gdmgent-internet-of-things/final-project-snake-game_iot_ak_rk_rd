@@ -62,4 +62,4 @@ async function commitHighscore(name, score) {
   }
 }
 
-await commitHighscore("test", score);
+await commitHighscore("snake", score);

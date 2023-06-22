@@ -39,26 +39,28 @@ async function updateHighscores(dataArray) {
 
 // Specify the data array with document IDs, field names, and values to update
 const dataArray = [
-  { docId: "snake_1", name: "test1", score: 100 },
-  { docId: "snake_2", name: "test2", score: 200 }
+  { docId: "snake_1", name: "snake1", score: 100 },
+  { docId: "snake_2", name: "snake2", score: 200 }
 ];
 
 await updateHighscores(dataArray);
 
-async function commitHighscore(name, score) {
-  try {
-    const highscoresRef = collection(db, "high_scores");
+const highscoreArray = [
+  { name: "snake1", score: 100 },
+  { name: "snake2", score: 200 }
+];
 
-    // Create a new document with an auto-generated ID
-    const docRef = await addDoc(highscoresRef, {
-      name: name,
-      score: score
-    });
-
-    console.log("Highscore committed successfully with ID:", docRef.id);
-  } catch (error) {
-    console.error("Error committing highscore:", error);
+async function commitHighscores(highscoreArray) {
+  for (const { name, score } of highscoreArray) {
+    try {
+      const highscoresRef = collection(db, "high_scores");
+      const docRef = await addDoc(highscoresRef, { name, score });
+      console.log("Highscore committed successfully with ID:", docRef.id);
+    } catch (error) {
+      console.error("Error committing highscore:", error);
+    }
   }
 }
 
-await commitHighscore("test", score);
+await commitHighscores(highscoreArray);
+
