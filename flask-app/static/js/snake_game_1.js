@@ -213,6 +213,8 @@ function showGameOverDialog() {
   document.body.appendChild(dialog);
 }
 
+console.log(score);
+
 generateFood();
 // Start the game
 gameLoop();

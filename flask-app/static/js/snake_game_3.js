@@ -38,11 +38,6 @@ const canvasSize = canvas.width / boxSize;
 
 // });
 
-
-
-
-
-
 let snakes = [
   {
     body: [{ x: 10, y: 10 }],
@@ -84,19 +79,47 @@ snakes[2].bodyImage.src = "../static/Snakes/snake_lichaam_oragne.png";
 // Handle keyboard events
 document.addEventListener("keydown", changeDirection);
 
+// Handle touch events
+canvas.addEventListener("touchstart", handleTouchStart);
+canvas.addEventListener("touchmove", handleTouchMove);
+
+let touchStartX = null;
+let touchStartY = null;
+
+function handleTouchStart(event) {
+  touchStartX = event.touches[0].clientX;
+  touchStartY = event.touches[0].clientY;
+}
+
+function handleTouchMove(event) {
+  if (!touchStartX || !touchStartY) return;
+
+  const touchEndX = event.touches[0].clientX;
+  const touchEndY = event.touches[0].clientY;
+
+  const dx = touchEndX - touchStartX;
+  const dy = touchEndY - touchStartY;
+
+  if (Math.abs(dx) > Math.abs(dy)) {
+    if (dx > 0 && snakes[0].direction !== "left") {
+      snakes[0].direction = "right";
+    } else if (dx < 0 && snakes[0].direction !== "right") {
+      snakes[0].direction = "left";
+    }
+  } else {
+    if (dy > 0 && snakes[0].direction !== "up") {
+      snakes[0].direction = "down";
+    } else if (dy < 0 && snakes[0].direction !== "down") {
+      snakes[0].direction = "up";
+    }
+  }
+
+  touchStartX = null;
+  touchStartY = null;
+}
+
 function changeDirection(event) {
   const key = event.keyCode;
-
-  // Control the first snake with arrow keys
-  if (key === 37 && snakes[0].direction !== "right") {
-    snakes[0].direction = "left";
-  } else if (key === 38 && snakes[0].direction !== "down") {
-    snakes[0].direction = "up";
-  } else if (key === 39 && snakes[0].direction !== "left") {
-    snakes[0].direction = "right";
-  } else if (key === 40 && snakes[0].direction !== "up") {
-    snakes[0].direction = "down";
-  }
 
   // Control the second snake with z, s, q, d keys
   if (key === 90 && snakes[1].direction !== "down") {
@@ -109,14 +132,14 @@ function changeDirection(event) {
     snakes[1].direction = "right";
   }
 
-  // Control the third snake with numpad keys
-  if (key === 97 && snakes[2].direction !== "right") {
+  // Control the third snake with arrow keys
+  if (key === 37 && snakes[2].direction !== "right") {
     snakes[2].direction = "left";
-  } else if (key === 98 && snakes[2].direction !== "up") {
+  } else if (key === 38 && snakes[2].direction !== "up") {
     snakes[2].direction = "down";
-  } else if (key === 99 && snakes[2].direction !== "left") {
+  } else if (key === 39 && snakes[2].direction !== "left") {
     snakes[2].direction = "right";
-  } else if (key === 100 && snakes[2].direction !== "down") {
+  } else if (key === 40 && snakes[2].direction !== "down") {
     snakes[2].direction = "up";
   }
 }
