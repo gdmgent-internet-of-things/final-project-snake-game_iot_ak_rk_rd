@@ -1,5 +1,38 @@
 from flask import Flask, render_template, request
 import subprocess
+#from flask_socketio import SocketIO
+#import RPi.GPIO as GPIO
+
+
+# socketio = SocketIO(app)
+
+# # Define button pins
+# button_pin1 = 11
+# button_pin2 = 10
+# button_pin3 = 9
+# button_pin4 = 8
+
+# # Set up GPIO button
+# GPIO.setmode(GPIO.BOARD)
+# GPIO.setup(button_pin1, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Replace `button_pin` with your actual pin number
+# GPIO.setup(button_pin2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+# GPIO.setup(button_pin3, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+# GPIO.setup(button_pin4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+# @app.route('/')
+# def index():
+#     return render_template('snake_3.html')
+
+# @socketio.on('connect')
+# def handle_connect():
+#     # Send GPIO button data when a client is connected
+#     button_state = GPIO.input(button_pin1)
+#     button_state = GPIO.input(button_pin2)
+#     button_state = GPIO.input(button_pin3)
+#     button_state = GPIO.input(button_pin4)
+#     socketio.emit('button_state', button_state)
+
+
+
 
 
 app = Flask(__name__)

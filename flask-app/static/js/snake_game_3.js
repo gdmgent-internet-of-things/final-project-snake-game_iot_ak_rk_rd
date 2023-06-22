@@ -3,6 +3,46 @@ const canvas = document.getElementById("gameCanvas");
 const context = canvas.getContext("2d");
 const boxSize = 20;
 const canvasSize = canvas.width / boxSize;
+
+// var socket = io.connect();  // Connect to the SocketIO server
+
+// socket.on('button_state', function(buttonState) {
+//     // Handle the received button state
+//     console.log('Received button state:', buttonState);
+// });
+
+// document.addEventListener('DOMContentLoaded', () => {
+//   const socket = io();
+//   const gameContainer = document.getElementById('game-container');
+
+//   // Listen for GPIO button state updates from the server
+//   socket.on('button_state', buttonState => {
+//       if (buttonState === 'button1_pressed') {
+//           sendMovement('up');
+//       } else if (buttonState === 'button2_pressed') {
+//           sendMovement('right');
+//       } else if (buttonState === 'button3_pressed') {
+//           sendMovement('down');
+//       } else if (buttonState === 'button4_pressed') {
+//           sendMovement('left');
+//       } else {
+        
+//       }
+//   });
+
+//   // Function to send movement information to the server
+//   function sendMovement(direction) {
+//       socket.emit('movement', direction);
+//   }
+
+
+// });
+
+
+
+
+
+
 let snakes = [
   {
     body: [{ x: 10, y: 10 }],
