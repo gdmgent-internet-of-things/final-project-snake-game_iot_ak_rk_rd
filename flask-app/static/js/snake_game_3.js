@@ -26,7 +26,7 @@ const canvasSize = canvas.width / boxSize;
 //       } else if (buttonState === 'button4_pressed') {
 //           sendMovement('left');
 //       } else {
-        
+
 //       }
 //   });
 
@@ -38,23 +38,31 @@ const canvasSize = canvas.width / boxSize;
 
 // });
 
-let snakes = [
-  {
-    body: [{ x: 10, y: 10 }],
+let snakes = [{
+    body: [{
+      x: 10,
+      y: 10
+    }],
     direction: "right",
     score: 0,
     headImage: new Image(),
     bodyImage: new Image()
   },
   {
-    body: [{ x: 10, y: 15 }],
+    body: [{
+      x: 10,
+      y: 15
+    }],
     direction: "right",
     score: 0,
     headImage: new Image(),
     bodyImage: new Image()
   },
   {
-    body: [{ x: 10, y: 20 }],
+    body: [{
+      x: 10,
+      y: 20
+    }],
     direction: "right",
     score: 0,
     headImage: new Image(),

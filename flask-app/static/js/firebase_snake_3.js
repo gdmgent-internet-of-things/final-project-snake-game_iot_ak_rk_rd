@@ -1,6 +1,14 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-import { getFirestore, collection, addDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  doc,
+  updateDoc
+} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -31,15 +39,34 @@ startGameButton.addEventListener("click", async (event) => {
   const score = 0;
   if (snake1Name.trim() !== "" && snake2Name.trim() !== "") {
     try {
-      await commitHighscores([
-        { name: snake1Name, score: 100 },
-        { name: snake2Name, score: 200 },
-        { name: snake3Name, score: 300 }
+      await commitHighscores([{
+          name: snake1Name,
+          score: 100
+        },
+        {
+          name: snake2Name,
+          score: 200
+        },
+        {
+          name: snake3Name,
+          score: 300
+        }
       ]);
-      await updateHighscores([
-        { docId: "snake_1", name: snake1Name, score: score },
-        { docId: "snake_2", name: snake2Name, score: score },
-        { docId: "snake_3", name: snake3Name, score: score }
+      await updateHighscores([{
+          docId: "snake_1",
+          name: snake1Name,
+          score: score
+        },
+        {
+          docId: "snake_2",
+          name: snake2Name,
+          score: score
+        },
+        {
+          docId: "snake_3",
+          name: snake3Name,
+          score: score
+        }
       ]);
       window.location.href = "/snake-game-3-players";
     } catch (error) {
@@ -55,7 +82,11 @@ async function updateHighscores(dataArray) {
     const highscoresRef = collection(db, "snake_game_3");
 
     for (const data of dataArray) {
-      const { docId, name, score } = data;
+      const {
+        docId,
+        name,
+        score
+      } = data;
       const docRef = doc(highscoresRef, docId);
       await updateDoc(docRef, {
         name: name,
@@ -69,10 +100,16 @@ async function updateHighscores(dataArray) {
 }
 
 async function commitHighscores(highscoreArray) {
-  for (const { name, score } of highscoreArray) {
+  for (const {
+      name,
+      score
+    } of highscoreArray) {
     try {
       const highscoresRef = collection(db, "high_scores");
-      await addDoc(highscoresRef, { name, score });
+      await addDoc(highscoresRef, {
+        name,
+        score
+      });
       console.log("Highscore committed successfully");
     } catch (error) {
       console.error("Error committing highscore:", error);

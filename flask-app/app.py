@@ -31,10 +31,6 @@ import subprocess
 #     button_state = GPIO.input(button_pin4)
 #     socketio.emit('button_state', button_state)
 
-
-
-
-
 app = Flask(__name__)
 
 @app.route("/")

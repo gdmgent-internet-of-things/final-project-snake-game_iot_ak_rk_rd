@@ -41,7 +41,7 @@ function checkGamepadInput() {
       snakes[0].direction = "left";
     } else if (axes[0] > 0.5 && snakes[0].direction !== "left") {
       snakes[0].direction = "right";
-    }else if (axes[1] < -0.5 && snakes[0].direction !== "down") {
+    } else if (axes[1] < -0.5 && snakes[0].direction !== "down") {
       snakes[0].direction = "up";
     } else if (axes[1] > 0.5 && snakes[0].direction !== "up") {
       snakes[0].direction = "down";
@@ -57,8 +57,7 @@ const canvas = document.getElementById("gameCanvas");
 const context = canvas.getContext("2d");
 const boxSize = 20;
 const canvasSize = canvas.width / boxSize;
-let snakes = [
-  {
+let snakes = [{
     body: [{
       x: 10,
       y: 10
@@ -260,7 +259,7 @@ function updateScore() {
 // Check if the game is over
 function gameOver() {
   let isGameOver = false;
-  
+
   snakes.forEach(function (snake) {
     const head = snake.body[0];
 
@@ -293,27 +292,27 @@ function gameOver() {
 // Show the game over dialog
 function showGameOverDialog() {
   const dialog = document.querySelector(".game-over-dialog");
-  
+
   // Remove existing dialog if present
   if (dialog) {
     document.body.removeChild(dialog);
   }
-  
+
   // Create and append game over dialog
   const gameOverDialog = document.createElement("div");
   gameOverDialog.className = "game-over-dialog";
-  
+
   snakes.forEach(function (snake, index) {
     const scoreElement = document.createElement("p");
     scoreElement.textContent = `Snake ${index + 1} Score: ${snake.score}`;
     gameOverDialog.appendChild(scoreElement);
   });
-  
+
   const playAgainButton = document.createElement("button");
   playAgainButton.textContent = "Play Again";
   playAgainButton.addEventListener("click", redirectToGameOver);
   gameOverDialog.appendChild(playAgainButton);
-  
+
   document.body.appendChild(gameOverDialog);
 }
 
