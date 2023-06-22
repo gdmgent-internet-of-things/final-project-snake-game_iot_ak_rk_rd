@@ -37,7 +37,10 @@ async function displayHighscores() {
 
   try {
     const highscores = await getHighscores();
+
     if (highscores.length > 0) {
+      highscores.sort((a, b) => b.score - a.score); // Sort highscores in descending order
+
       highscoresDiv.innerHTML = '';
 
       highscores.forEach(score => {

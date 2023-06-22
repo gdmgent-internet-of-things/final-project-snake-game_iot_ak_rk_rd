@@ -1,4 +1,56 @@
+// Gamepad variables
+let gamepad;
 
+// Check for gamepad support
+function checkGamepadSupport() {
+  if (navigator.getGamepads) {
+    // Start listening for gamepad events
+    window.addEventListener("gamepadconnected", onGamepadConnected);
+    window.addEventListener("gamepaddisconnected", onGamepadDisconnected);
+  } else {
+    console.log("Gamepad API not supported");
+  }
+}
+
+// Handle gamepad connection
+function onGamepadConnected(event) {
+  gamepad = event.gamepad;
+  console.log("Gamepad connected:", gamepad);
+  gamepadLoop();
+}
+
+// Handle gamepad disconnection
+function onGamepadDisconnected(event) {
+  console.log("Gamepad disconnected:", event.gamepad);
+  gamepad = undefined;
+}
+
+// Gamepad loop
+function gamepadLoop() {
+  checkGamepadInput();
+  requestAnimationFrame(gamepadLoop);
+}
+
+
+function checkGamepadInput() {
+  if (gamepad) {
+    const axes = gamepad.axes;
+
+    // Control the first snake with the left joystick
+    if (axes[0] < -0.5 && snakes[0].direction !== "right") {
+      snakes[0].direction = "left";
+    } else if (axes[0] > 0.5 && snakes[0].direction !== "left") {
+      snakes[0].direction = "right";
+    } else if (axes[1] < -0.5 && snakes[0].direction !== "down") {
+      snakes[0].direction = "up";
+    } else if (axes[1] > 0.5 && snakes[0].direction !== "up") {
+      snakes[0].direction = "down";
+    }
+  }
+}
+
+// Call the checkGamepadSupport function to start listening for gamepad events
+checkGamepadSupport();
 
 // Game variables
 const canvas = document.getElementById("gameCanvas");
@@ -43,17 +95,6 @@ document.addEventListener("keydown", changeDirection);
 
 function changeDirection(event) {
   const key = event.keyCode;
-
-  // Control the first snake with arrow keys
-  if (key === 37 && snakes[0].direction !== "right") {
-    snakes[0].direction = "left";
-  } else if (key === 38 && snakes[0].direction !== "down") {
-    snakes[0].direction = "up";
-  } else if (key === 39 && snakes[0].direction !== "left") {
-    snakes[0].direction = "right";
-  } else if (key === 40 && snakes[0].direction !== "up") {
-    snakes[0].direction = "down";
-  }
 
   // Control the second snake with z, s, q, d keys
   if (key === 90 && snakes[1].direction !== "down") {

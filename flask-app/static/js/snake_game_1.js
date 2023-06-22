@@ -1,4 +1,3 @@
-// import { updateHighscore } from "./firebase_snake_1";
 
 // Game variables
 const canvas = document.getElementById("gameCanvas");
@@ -26,6 +25,45 @@ bodyImage.src = "../static/Snakes/snake_lichaam_blauw.png";
 // Handle keyboard events
 document.addEventListener("keydown", changeDirection);
 
+// Handle touch events
+canvas.addEventListener("touchstart", handleTouchStart);
+canvas.addEventListener("touchmove", handleTouchMove);
+
+let touchStartX = null;
+let touchStartY = null;
+
+function handleTouchStart(event) {
+  touchStartX = event.touches[0].clientX;
+  touchStartY = event.touches[0].clientY;
+}
+
+function handleTouchMove(event) {
+  if (!touchStartX || !touchStartY) return;
+
+  const touchEndX = event.touches[0].clientX;
+  const touchEndY = event.touches[0].clientY;
+
+  const dx = touchEndX - touchStartX;
+  const dy = touchEndY - touchStartY;
+
+  if (Math.abs(dx) > Math.abs(dy)) {
+    if (dx > 0 && direction !== "left") {
+      direction = "right";
+    } else if (dx < 0 && direction !== "right") {
+      direction = "left";
+    }
+  } else {
+    if (dy > 0 && direction !== "up") {
+      direction = "down";
+    } else if (dy < 0 && direction !== "down") {
+      direction = "up";
+    }
+  }
+
+  touchStartX = null;
+  touchStartY = null;
+}
+
 function changeDirection(event) {
   const key = event.keyCode;
   if (key === 37 && direction !== "right") {
@@ -49,13 +87,11 @@ function gameLoop() {
     updateScore();
     if (!gameOver()) {
       gameLoop();
-    } 
-    // else {
-    //   // Update highscore here
-    //   const docId = "snake";
-    //   updateHighscore(docId, "snake", score);
-      
-    // }
+    } else {
+      // Update highscore here
+      const docId = "snake";
+      updateHighscore(docId, "snake", score);
+    }
   }, 100);
 }
 
@@ -186,14 +222,11 @@ function showGameOverDialog() {
   dialog.className = "game-over-dialog";
   dialog.innerHTML = `
     <p>Game over! Your score: ${score}</p>
-    <button onclick="redirectToGameOver()">Play Again</button>
+    <a href="/start">
+    <button>Play Again</button>
+    <a>
   `;
   document.body.appendChild(dialog);
-}
-
-// Redirect to the game over HTML file
-function redirectToGameOver() {
-  window.location.href = "/start";
 }
 
 generateFood();
