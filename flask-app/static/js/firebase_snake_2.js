@@ -39,15 +39,15 @@ async function updateHighscores(dataArray) {
 
 // Specify the data array with document IDs, field names, and values to update
 const dataArray = [
-  { docId: "snake_1", name: "snake1", score: score },
-  { docId: "snake_2", name: "snake2", score: score }
+  { docId: "snake_1", name: "snake1", score: 100 },
+  { docId: "snake_2", name: "snake2", score: 200 }
 ];
 
 await updateHighscores(dataArray);
 
 const highscoreArray = [
-  { name: "snake1", score: score },
-  { name: "snake2", score: score }
+  { name: "snake1", score: 100 },
+  { name: "snake2", score: 200 }
 ];
 
 async function commitHighscores(highscoreArray) {

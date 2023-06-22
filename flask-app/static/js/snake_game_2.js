@@ -41,7 +41,8 @@ function checkGamepadInput() {
       snakes[0].direction = "left";
     } else if (axes[0] > 0.5 && snakes[0].direction !== "left") {
       snakes[0].direction = "right";
-    } else if (axes[1] < -0.5 && snakes[0].direction !== "down") {
+    }
+    else if (axes[1] < -0.5 && snakes[0].direction !== "down") {
       snakes[0].direction = "up";
     } else if (axes[1] > 0.5 && snakes[0].direction !== "up") {
       snakes[0].direction = "down";
