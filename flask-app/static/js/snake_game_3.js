@@ -54,8 +54,8 @@ let snakes = [
     bodyImage: new Image()
   },
   {
-    body: [{ x: 15, y: 10 }],
-    direction: "left",
+    body: [{ x: 10, y: 20 }],
+    direction: "right",
     score: 0,
     headImage: new Image(),
     bodyImage: new Image()
@@ -135,11 +135,11 @@ function changeDirection(event) {
   // Control the third snake with arrow keys
   if (key === 37 && snakes[2].direction !== "right") {
     snakes[2].direction = "left";
-  } else if (key === 38 && snakes[2].direction !== "up") {
+  } else if (key === 40 && snakes[2].direction !== "up") {
     snakes[2].direction = "down";
   } else if (key === 39 && snakes[2].direction !== "left") {
     snakes[2].direction = "right";
-  } else if (key === 40 && snakes[2].direction !== "down") {
+  } else if (key === 38 && snakes[2].direction !== "down") {
     snakes[2].direction = "up";
   }
 }
